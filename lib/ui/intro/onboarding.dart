@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_agua_da_serra_app/main_ui/login.dart';
+import 'package:flutter_agua_da_serra_app/ui/auth/login.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 
@@ -78,7 +78,7 @@ class _OnboardingState extends State<Onboarding> {
             SizedBox(
               child: Container(
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(bottom: Dimens.paddingApplication),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -96,26 +96,25 @@ class _OnboardingState extends State<Onboarding> {
                         ],
                       ),
                       Container(
-                        margin: EdgeInsets.all(16),
+                        margin: EdgeInsets.all(Dimens.marginApplication),
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                          style: ButtonStyle (
-                            backgroundColor: MaterialStateProperty.all(OwnerColors.colorPrimary),
-                          ),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  OwnerColors.colorPrimary),
+                            ),
                             onPressed: () {
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Login()
-                                  ),
-                                  ModalRoute.withName("/ui/login")
-                              );
+                                      builder: (context) => Login()),
+                                  ModalRoute.withName("/ui/login"));
                             },
                             child: Text(
                               "Entrar",
                               style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: Dimens.textSize8,
                                   color: Colors.white,
                                   fontFamily: 'Inter',
                                   fontWeight: FontWeight.normal,
@@ -126,7 +125,7 @@ class _OnboardingState extends State<Onboarding> {
                         "Já possui uma conta? Entre aqui",
                         style: TextStyle(
                             color: Colors.white,
-                            fontSize: 14,
+                            fontSize:Dimens.textSize5,
                             fontFamily: 'Inter',
                         ),
                         textAlign: TextAlign.center,
@@ -209,18 +208,18 @@ class OnboardingContent extends StatelessWidget {
           children: [
             Expanded(
                 child: Container(
-              child: Center(
-                child: Image.asset(
-                  color: Colors.white,
-                  image,
-                  height: 180,
-                  width: 180,
-                ),
-              ),
-            )),
+                  child: Center(
+                    child: Image.asset(
+                      color: Colors.white,
+                      image,
+                      height: 180,
+                      width: 180,
+                    ),
+                  ),
+                )),
             Container(
-                padding: EdgeInsets.all(20),
-                margin: EdgeInsets.only(bottom: 24),
+                padding: EdgeInsets.all(Dimens.paddingApplication),
+                margin: EdgeInsets.only(bottom: Dimens.marginApplication),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -228,7 +227,7 @@ class OnboardingContent extends StatelessWidget {
                       subtitle,
                       style: TextStyle(
                           color: Colors.white,
-                          fontSize: 16,
+                          fontSize: Dimens.textSize6,
                           fontFamily: 'Inter',
                           fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
