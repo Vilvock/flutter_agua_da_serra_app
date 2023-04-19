@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
+import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
 
 import '../components/custom_app_bar.dart';
 
@@ -285,11 +286,11 @@ class registerScreen extends StatelessWidget {
                                         OwnerColors.colorPrimary),
                                   ),
                                   onPressed: () {
-                                    // Navigator.pushAndRemoveUntil(
-                                    //     context,
-                                    //     MaterialPageRoute(
-                                    //         builder: (context) => Login()),
-                                    //     ModalRoute.withName("/ui/home"));
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => Home()),
+                                        ModalRoute.withName("/ui/home"));
                                   },
                                   child: Text(
                                     "Criar conta",

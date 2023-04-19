@@ -4,6 +4,7 @@ import 'package:flutter_agua_da_serra_app/ui/auth/register.dart';
 import 'package:flutter_agua_da_serra_app/ui/intro/onboarding.dart';
 import 'package:flutter_agua_da_serra_app/ui/intro/splash.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
+import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -16,6 +17,7 @@ void main() {
       '/ui/onboarding': (context) => Onboarding(),
       '/ui/login': (context) => Login(),
       '/ui/register': (context) => Register(),
+      '/ui/home': (context) => Home(),
 
 
     },
