@@ -8,7 +8,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: Colors.black),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => {
+          if (Navigator.of(context).canPop())
+            {Navigator.of(context).pop()}
+          else
+            {SystemNavigator.pop()}
+        },
       ),
       backgroundColor: Colors.white,
       elevation: Dimens.elevationApplication,
@@ -16,9 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text("Sample")
-        ],
+        children: [Text("Sample")],
       ),
     );
   }

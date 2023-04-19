@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
+import 'package:flutter_agua_da_serra_app/ui/auth/register.dart';
 
 import '../components/custom_app_bar.dart';
 
@@ -132,13 +133,8 @@ class loginScreen extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(OwnerColors.colorPrimary),
                           ),
                           onPressed: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Login()
-                                ),
-                                ModalRoute.withName("/ui/home")
-                            );
+
+
                           },
                           child: Text(
                             "Entrar",
@@ -153,20 +149,20 @@ class loginScreen extends StatelessWidget {
 
                     Expanded(
                       child: Align(
-                        alignment: FractionalOffset.bottomCenter,
-                        child: Container(
-                          child: Text(
-                            "Ainda não possui uma conta? Entre aqui",
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: Dimens.textSize5,
-                              fontFamily: 'Inter',
-                            ),
-                          ),
-                        ),
-                      ),
+                          alignment: FractionalOffset.bottomCenter,
+                          child: GestureDetector(
+                              child: Text(
+                                "Ainda não possui uma conta? Entre aqui",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: Dimens.textSize5,
+                                  fontFamily: 'Inter',
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.pushNamed(context, "/ui/register");
+                              })),
                     ),
-
                   ],
                 ),
             ))
