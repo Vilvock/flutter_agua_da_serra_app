@@ -78,23 +78,23 @@ class BottomNavBar extends StatelessWidget {
       showUnselectedLabels: false,
       items: const [
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_filled),
+          icon: Icon(Icons.home_outlined),
           label: 'Home',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.bookmark_rounded),
+          icon: Icon(Icons.shopping_cart_outlined),
           label: 'Carrinho',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.podcasts_rounded),
+          icon: Icon(Icons.list_alt),
           label: 'Meus Pedidos',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.file_copy_rounded),
+          icon: Icon(Icons.star_outline),
           label: 'Meus Favoritos',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.note),
+          icon: Icon(Icons.person_outline),
           label: 'Menu Principal',
         ),
       ],

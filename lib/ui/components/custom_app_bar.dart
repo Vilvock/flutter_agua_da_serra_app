@@ -7,7 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: Colors.black),
+        icon: Icon(Icons.arrow_back_ios, color: Colors.black54),
         onPressed: () => {
           if (Navigator.of(context).canPop())
             {Navigator.of(context).pop()}
