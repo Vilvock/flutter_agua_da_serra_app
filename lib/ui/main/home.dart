@@ -36,7 +36,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(),
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavBar(
           currentIndex: _selectedIndex, onTap: _onItemTapped),
@@ -55,7 +54,10 @@ class _ContainerHomeState extends State<ContainerHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: CustomAppBar(title: "Início", isVisibleBackButton: false),
+        body: Container());
   }
 }
 

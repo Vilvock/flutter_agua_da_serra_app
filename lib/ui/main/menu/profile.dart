@@ -28,7 +28,7 @@ class profileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: CustomAppBar(title: "Meu Perfil"),
+        appBar: CustomAppBar(title: "Meu Perfil", isVisibleBackButton: true),
         body: Container(
             child: Container(
           child: Column(children: [

@@ -13,6 +13,7 @@ class _MainMenu extends State<MainMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CustomAppBar(title: "Menu Principal", isVisibleBackButton: false),
       resizeToAvoidBottomInset: false,
       body: Container(
         child: Column(

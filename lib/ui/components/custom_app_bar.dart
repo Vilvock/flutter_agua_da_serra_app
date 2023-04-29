@@ -3,15 +3,47 @@ import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-
   String title;
+  bool isVisibleBackButton;
 
-  CustomAppBar({this.title: ""});
+  CustomAppBar({this.title: "", this.isVisibleBackButton = false});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: IconButton(
+      automaticallyImplyLeading: this.isVisibleBackButton,
+      leading: _returnBackIcon(this.isVisibleBackButton, context),
+      backgroundColor: Colors.white,
+      elevation: Dimens.elevationApplication,
+      titleSpacing: 0,
+      title: Row(
+        children: [
+          Container(
+            margin: EdgeInsets.only(left: Dimens.minMarginApplication),
+            child: Image.asset(
+              'images/main_logo_2.png',
+              height: AppBar().preferredSize.height,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: Dimens.minMarginApplication),
+            child: Text(
+              title,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: Dimens.textSize7,
+                color: Colors.black,
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  IconButton? _returnBackIcon(bool isVisible, BuildContext context) {
+    if (isVisible) {
+      return IconButton(
         icon: Icon(Icons.arrow_back_ios, color: Colors.black54),
         onPressed: () => {
           if (Navigator.of(context).canPop())
@@ -19,25 +51,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           else
             {SystemNavigator.pop()}
         },
-      ),
-      backgroundColor: Colors.white,
-      elevation: Dimens.elevationApplication,
-      titleSpacing: 0,
-      automaticallyImplyLeading: false,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontSize: Dimens.textSize7,
-              color: Colors.black,
-            ),
-          )
-        ],
-      ),
-    );
+      );
+    }
+
+    return null;
   }
 
   @override
