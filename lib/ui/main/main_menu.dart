@@ -61,7 +61,10 @@ class _MainMenu extends State<MainMenu> {
                       IconButton(
                         icon: Icon(Icons.arrow_forward_ios,
                             color: Colors.black38),
-                        onPressed: () => {},
+                        onPressed: () => {
+
+                            Navigator.pushNamed(context, "/ui/profile")
+                        },
                       )
                     ],
                   ),

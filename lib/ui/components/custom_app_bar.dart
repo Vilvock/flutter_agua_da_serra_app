@@ -3,6 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+
+  String title;
+
+  CustomAppBar({this.title: ""});
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -21,7 +26,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [Text("Sample")],
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: Dimens.textSize7,
+              color: Colors.black,
+            ),
+          )
+        ],
       ),
     );
   }
