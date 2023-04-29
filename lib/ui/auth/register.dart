@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
+import 'package:flutter_agua_da_serra_app/ui/auth/pdf_viewer.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
 
 import '../components/custom_app_bar.dart';
@@ -270,11 +271,7 @@ class registerScreen extends StatelessWidget {
                                     )
                                 ),
                                 onTap: () {
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Register()),
-                                      ModalRoute.withName("/ui/register"));
+                                  Navigator.pushNamed(context, "/ui/pdf_viewer");
                                 }),
                             Container(
                               margin: EdgeInsets.only(top: Dimens.marginApplication),

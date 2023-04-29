@@ -19,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: Row(
         children: [
           Container(
-            margin: EdgeInsets.only(left: Dimens.minMarginApplication),
+            margin: EdgeInsets.only(left: Dimens.marginApplication),
             child: Image.asset(
               'images/main_logo_2.png',
               height: AppBar().preferredSize.height,

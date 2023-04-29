@@ -111,11 +111,11 @@ class _MainMenu extends State<MainMenu> {
               ),
             ),
             Divider(
-              color: Colors.black12, //color of divider
-              height: 2, //height spacing of divider
-              thickness: 1.5, //thickness of divier line
-              indent: Dimens.marginApplication, //spacing at the start of divider
-              endIndent: Dimens.marginApplication, //spacing at the end of divider
+              color: Colors.black12,
+              height: 2,
+              thickness: 1.5,
+              indent: Dimens.marginApplication,
+              endIndent: Dimens.marginApplication,
             ),
             Container(
               padding: EdgeInsets.all(Dimens.maxPaddingApplication),
@@ -158,11 +158,11 @@ class _MainMenu extends State<MainMenu> {
               ),
             ),
             Divider(
-              color: Colors.black12, //color of divider
-              height: 2, //height spacing of divider
-              thickness: 1.5, //thickness of divier line
-              indent: Dimens.marginApplication, //spacing at the start of divider
-              endIndent: Dimens.marginApplication, //spacing at the end of divider
+              color: Colors.black12,
+              height: 2,
+              thickness: 1.5,
+              indent: Dimens.marginApplication,
+              endIndent: Dimens.marginApplication,
             ),
             Container(
               padding: EdgeInsets.all(Dimens.maxPaddingApplication),
@@ -205,11 +205,11 @@ class _MainMenu extends State<MainMenu> {
               ),
             ),
             Divider(
-              color: Colors.black12, //color of divider
-              height: 2, //height spacing of divider
-              thickness: 1.5, //thickness of divier line
-              indent: Dimens.marginApplication, //spacing at the start of divider
-              endIndent: Dimens.marginApplication, //spacing at the end of divider
+              color: Colors.black12,
+              height: 2,
+              thickness: 1.5,
+              indent: Dimens.marginApplication,
+              endIndent: Dimens.marginApplication,
             ),
             Container(
               padding: EdgeInsets.all(Dimens.maxPaddingApplication),
@@ -252,11 +252,11 @@ class _MainMenu extends State<MainMenu> {
               ),
             ),
             Divider(
-              color: Colors.black12, //color of divider
-              height: 2, //height spacing of divider
-              thickness: 1.5, //thickness of divier line
-              indent: Dimens.marginApplication, //spacing at the start of divider
-              endIndent: Dimens.marginApplication, //spacing at the end of divider
+              color: Colors.black12,
+              height: 2,
+              thickness: 1.5,
+              indent: Dimens.marginApplication,
+              endIndent: Dimens.marginApplication,
             ),
           ],
         ),

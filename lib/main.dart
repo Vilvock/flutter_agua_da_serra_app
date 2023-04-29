@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_agua_da_serra_app/ui/auth/login.dart';
+import 'package:flutter_agua_da_serra_app/ui/auth/pdf_viewer.dart';
 import 'package:flutter_agua_da_serra_app/ui/auth/register.dart';
 import 'package:flutter_agua_da_serra_app/ui/intro/onboarding.dart';
 import 'package:flutter_agua_da_serra_app/ui/intro/splash.dart';
@@ -20,6 +21,7 @@ void main() {
       '/ui/register': (context) => Register(),
       '/ui/home': (context) => Home(),
       '/ui/profile': (context) => Profile(),
+      '/ui/pdf_viewer': (context) => PdfViewer(),
 
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //   content: Text("Sending Message"),

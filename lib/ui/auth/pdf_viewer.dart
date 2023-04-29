@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
 
-class Favorites extends StatefulWidget {
-  const Favorites ({Key? key}) : super(key: key);
+class PdfViewer extends StatefulWidget {
+  const PdfViewer ({Key? key}) : super(key: key);
 
   @override
-  State<Favorites> createState() => _Favorites();
+  State<PdfViewer> createState() => _PdfViewer();
 }
 
-class _Favorites extends State<Favorites > {
+class _PdfViewer extends State<PdfViewer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: CustomAppBar(title: "Meus Favoritos", isVisibleBackButton: false),
+        appBar: CustomAppBar(title: "Termos de Uso", isVisibleBackButton: true),
         body: Container());
   }
 }
