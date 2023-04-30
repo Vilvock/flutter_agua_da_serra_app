@@ -22,7 +22,6 @@ class _Favorites extends State<Favorites> {
       appBar: CustomAppBar(title: "Meus Favoritos", isVisibleBackButton: false),
       body: ProgressHUD(
         inAsyncCall: _isLoading,
-        opacity: 0.0,
         valueColor: AlwaysStoppedAnimation<Color>(OwnerColors.colorPrimary),
         child: RefreshIndicator(
           onRefresh: _pullRefresh,

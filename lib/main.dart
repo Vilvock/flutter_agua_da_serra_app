@@ -6,6 +6,7 @@ import 'package:flutter_agua_da_serra_app/ui/intro/onboarding.dart';
 import 'package:flutter_agua_da_serra_app/ui/intro/splash.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
+import 'package:flutter_agua_da_serra_app/ui/main/menu/categories.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/menu/profile.dart';
 
 void main() {
@@ -22,6 +23,7 @@ void main() {
       '/ui/home': (context) => Home(),
       '/ui/profile': (context) => Profile(),
       '/ui/pdf_viewer': (context) => PdfViewer(),
+      '/ui/categories': (context) => Categories(),
 
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //   content: Text("Sending Message"),
