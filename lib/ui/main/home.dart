@@ -1,9 +1,11 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 import 'package:flutter_agua_da_serra_app/res/strings.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
+import 'package:flutter_agua_da_serra_app/ui/components/dot_indicator.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/progress_hud.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/cart.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/favorites.dart';
@@ -39,7 +41,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar:
-          BottomNavBar(currentIndex: _selectedIndex, onTap: _onItemTapped),
+      BottomNavBar(currentIndex: _selectedIndex, onTap: _onItemTapped),
     );
   }
 }
@@ -96,6 +98,7 @@ class BottomNavBar extends StatelessWidget {
 
 class _ContainerHomeState extends State<ContainerHome> {
   bool _isLoading = false;
+  int _pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -111,28 +114,55 @@ class _ContainerHomeState extends State<ContainerHome> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Container(
-                        height: 180,
-                        child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: /*numbersList.length*/ 2,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    Dimens.minRadiusApplication),
-                              ),
-                              margin:
-                                  EdgeInsets.all(Dimens.minMarginApplication),
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.80,
-                                padding:
-                                    EdgeInsets.all(Dimens.paddingApplication),
-                              ),
-                            );
+                      CarouselSlider(
+                        items: carouselItems, options: CarouselOptions(
+                          autoPlay: false,
+                          enlargeCenterPage: true,
+                          aspectRatio: 2.0,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _pageIndex = index;
+                            });
                           },
-                        ),
+
                       ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ...List.generate(
+                              carouselItems.length,
+                                  (index) => Padding(
+                                padding: const EdgeInsets.only(right: 4),
+                                child: DotIndicator(
+                                  isActive: index == _pageIndex,
+                                ),
+                              )),
+                        ],
+                      ),
+
+                      // Container(
+                      //   height: 180,
+                      //   child: ListView.builder(
+                      //     scrollDirection: Axis.horizontal,
+                      //     itemCount: /*numbersList.length*/ 2,
+                      //     itemBuilder: (context, index) {
+                      //       return Card(
+                      //         shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(
+                      //               Dimens.minRadiusApplication),
+                      //         ),
+                      //         margin:
+                      //             EdgeInsets.all(Dimens.minMarginApplication),
+                      //         child: Container(
+                      //           width: MediaQuery.of(context).size.width * 0.80,
+                      //           padding:
+                      //               EdgeInsets.all(Dimens.paddingApplication),
+                      //         ),
+                      //       );
+                      //     },
+                      //   ),
+                      // ),
                       Container(
                         height: 2000,
                       )
@@ -153,3 +183,41 @@ class _ContainerHomeState extends State<ContainerHome> {
     });
   }
 }
+
+final List<Widget> carouselItems = [
+  CarouselItemBuilder(title: "dasdas", image: "dasads", subtitle: "dasdsaas"),
+  CarouselItemBuilder(title: "dasdas", image: "dasads", subtitle: "dasdsaas"),
+  CarouselItemBuilder(title: "dasdas", image: "dasads", subtitle: "dasdsaas")
+];
+
+class CarouselItemBuilder extends StatelessWidget {
+  final String image, title, subtitle;
+
+  const CarouselItemBuilder(
+      {Key? key,
+        required this.title,
+        required this.image,
+        required this.subtitle});
+
+  @override
+  Widget build(BuildContext context) {
+      return Scaffold(
+        body:  Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                Dimens.minRadiusApplication),
+          ),
+          margin:
+          EdgeInsets.all(Dimens.minMarginApplication),
+          child: Container(
+            width: MediaQuery
+                .of(context)
+                .size
+                .width * 0.80,
+            padding:
+            EdgeInsets.all(Dimens.paddingApplication),
+          ),
+        ),
+      );
+    }
+  }
