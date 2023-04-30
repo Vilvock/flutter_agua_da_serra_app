@@ -10,7 +10,6 @@ import 'package:flutter_agua_da_serra_app/ui/main/favorites.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/main_menu.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/orders.dart';
 
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -39,8 +38,8 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavBar(
-          currentIndex: _selectedIndex, onTap: _onItemTapped),
+      bottomNavigationBar:
+          BottomNavBar(currentIndex: _selectedIndex, onTap: _onItemTapped),
     );
   }
 }
@@ -51,7 +50,6 @@ class ContainerHome extends StatefulWidget {
   @override
   State<ContainerHome> createState() => _ContainerHomeState();
 }
-
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -97,25 +95,52 @@ class BottomNavBar extends StatelessWidget {
 }
 
 class _ContainerHomeState extends State<ContainerHome> {
-
   bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(title: "Início", isVisibleBackButton: false),
-      body: ProgressHUD(
-        inAsyncCall: _isLoading,
-        valueColor: AlwaysStoppedAnimation<Color>(OwnerColors.colorPrimary),
-        child: RefreshIndicator(
-          onRefresh: _pullRefresh,
-          child: Container(
-
-          )
-        ),
-      ),
-    );
+        resizeToAvoidBottomInset: false,
+        appBar: CustomAppBar(title: "Início", isVisibleBackButton: false),
+        body: ProgressHUD(
+          inAsyncCall: _isLoading,
+          valueColor: AlwaysStoppedAnimation<Color>(OwnerColors.colorPrimary),
+          child: RefreshIndicator(
+              onRefresh: _pullRefresh,
+              child: Container(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 180,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: /*numbersList.length*/ 2,
+                          itemBuilder: (context, index) {
+                            return Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    Dimens.minRadiusApplication),
+                              ),
+                              margin:
+                                  EdgeInsets.all(Dimens.minMarginApplication),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width * 0.80,
+                                padding:
+                                    EdgeInsets.all(Dimens.paddingApplication),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      Container(
+                        height: 2000,
+                      )
+                    ],
+                  ),
+                ),
+              )),
+        ));
   }
 
   Future<void> _pullRefresh() async {
@@ -128,4 +153,3 @@ class _ContainerHomeState extends State<ContainerHome> {
     });
   }
 }
-
