@@ -14,28 +14,10 @@ class Orders extends StatefulWidget {
 }
 
 class _Orders extends State<Orders> {
-  List<String> numbersList = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5"
-  ];
+
+  bool _isLoading = false;
+
+  // List<String> numbersList = ["1", "2", "3", "4",];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +27,7 @@ class _Orders extends State<Orders> {
       body: RefreshIndicator(
         onRefresh: _pullRefresh,
         child: ListView.builder(
-          itemCount: numbersList.length,
+          itemCount: /*numbersList.length*/ 10,
           itemBuilder: (context, index) {
             return Card(
               shape: RoundedRectangleBorder(
@@ -131,20 +113,31 @@ class _Orders extends State<Orders> {
     );
   }
 
+
   Future<void> _pullRefresh() async {
-    List<String> freshNumbers = await NumberGenerator().slowNumbers();
     setState(() {
-      numbersList = freshNumbers;
+      _isLoading = true;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Sending Message"),
+      ));
+      _isLoading = false;
     });
   }
+
+  // Future<void> _pullRefresh() async {
+  //   List<String> freshNumbers = await NumberGenerator().slowNumbers();
+  //   setState(() {
+  //     numbersList = freshNumbers;
+  //   });
+  // }
 }
 
-class NumberGenerator {
-  Future<List<String>> slowNumbers() async {
-    return Future.delayed(const Duration(milliseconds: 1000), () => numbers);
-  }
-
-  List<String> get numbers => List.generate(15, (index) => number);
-
-  String get number => Random().nextInt(99999).toString();
-}
+// class NumberGenerator {
+//   Future<List<String>> slowNumbers() async {
+//     return Future.delayed(const Duration(milliseconds: 1000), () => numbers);
+//   }
+//
+//   List<String> get numbers => List.generate(15, (index) => number);
+//
+//   String get number => Random().nextInt(99999).toString();
+// }
