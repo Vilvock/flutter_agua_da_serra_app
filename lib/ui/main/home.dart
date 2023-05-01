@@ -134,14 +134,15 @@ class _ContainerHomeState extends State<ContainerHome> {
                               (index) => Padding(
                                     padding: const EdgeInsets.only(right: 4),
                                     child: DotIndicator(
-                                      isActive: index == _pageIndex,
-                                    ),
+                                        isActive: index == _pageIndex,
+                                        color: OwnerColors.colorPrimaryDark),
                                   )),
                         ],
                       ),
-
                       Container(
-                        margin: EdgeInsets.only(left: Dimens.marginApplication, right: Dimens.marginApplication),
+                        margin: EdgeInsets.only(
+                            left: Dimens.marginApplication,
+                            right: Dimens.marginApplication),
                         child: Row(
                           children: [
                             Expanded(
@@ -154,9 +155,7 @@ class _ContainerHomeState extends State<ContainerHome> {
                                   color: Colors.black,
                                 ),
                               ),
-
                             ),
-
                             Text(
                               "Ver mais",
                               style: TextStyle(
@@ -168,21 +167,20 @@ class _ContainerHomeState extends State<ContainerHome> {
                           ],
                         ),
                       ),
-
                       ListView.builder(
-
                         primary: false,
                         shrinkWrap: true,
                         itemCount: /*numbersList.length*/ 5,
                         itemBuilder: (context, index) {
                           return Card(
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                              BorderRadius.circular(Dimens.minRadiusApplication),
+                              borderRadius: BorderRadius.circular(
+                                  Dimens.minRadiusApplication),
                             ),
                             margin: EdgeInsets.all(Dimens.minMarginApplication),
                             child: Container(
-                              padding: EdgeInsets.all(Dimens.paddingApplication),
+                              padding:
+                                  EdgeInsets.all(Dimens.paddingApplication),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -199,7 +197,8 @@ class _ContainerHomeState extends State<ContainerHome> {
                                           ))),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           Strings.shortLoremIpsum,
@@ -212,7 +211,9 @@ class _ContainerHomeState extends State<ContainerHome> {
                                             color: Colors.black,
                                           ),
                                         ),
-                                        SizedBox(height: Dimens.minMarginApplication),
+                                        SizedBox(
+                                            height:
+                                                Dimens.minMarginApplication),
                                         Text(
                                           Strings.longLoremIpsum,
                                           maxLines: 2,
@@ -223,7 +224,8 @@ class _ContainerHomeState extends State<ContainerHome> {
                                             color: Colors.black,
                                           ),
                                         ),
-                                        SizedBox(height: Dimens.marginApplication),
+                                        SizedBox(
+                                            height: Dimens.marginApplication),
                                         Text(
                                           "Ver detalhes",
                                           style: TextStyle(
@@ -232,13 +234,17 @@ class _ContainerHomeState extends State<ContainerHome> {
                                             color: OwnerColors.colorPrimaryDark,
                                           ),
                                         ),
-                                        SizedBox(height: Dimens.minMarginApplication),
+                                        SizedBox(
+                                            height:
+                                                Dimens.minMarginApplication),
                                         Divider(
                                           color: Colors.black12,
                                           height: 2,
                                           thickness: 1.5,
                                         ),
-                                        SizedBox(height: Dimens.minMarginApplication),
+                                        SizedBox(
+                                            height:
+                                                Dimens.minMarginApplication),
                                         Text(
                                           "Em andamento",
                                           style: TextStyle(
@@ -256,29 +262,35 @@ class _ContainerHomeState extends State<ContainerHome> {
                           );
                         },
                       ),
-
-                      // Container(
-                      //   height: 180,
-                      //   child: ListView.builder(
-                      //     scrollDirection: Axis.horizontal,
-                      //     itemCount: /*numbersList.length*/ 2,
-                      //     itemBuilder: (context, index) {
-                      //       return Card(
-                      //         shape: RoundedRectangleBorder(
-                      //           borderRadius: BorderRadius.circular(
-                      //               Dimens.minRadiusApplication),
-                      //         ),
-                      //         margin:
-                      //             EdgeInsets.all(Dimens.minMarginApplication),
-                      //         child: Container(
-                      //           width: MediaQuery.of(context).size.width * 0.80,
-                      //           padding:
-                      //               EdgeInsets.all(Dimens.paddingApplication),
-                      //         ),
-                      //       );
-                      //     },
-                      //   ),
-                      // ),
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: Dimens.marginApplication,
+                            left: Dimens.marginApplication,
+                            right: Dimens.marginApplication),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "Outras ofertas",
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: Dimens.textSize6,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        child: GridView.count(
+                          primary: false,
+                          shrinkWrap: true,
+                          crossAxisCount: 2,
+                          children: gridlItems,
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -317,9 +329,42 @@ class CarouselItemBuilder extends StatelessWidget {
         margin: EdgeInsets.all(Dimens.minMarginApplication),
         child: Container(
           /*width: MediaQuery.of(context).size.width * 0.90,*/
-          child:  Image.asset(
+          child: Image.asset(
             image,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+final List<Widget> gridlItems = [
+  GridItemBuilder(image: ''),
+  GridItemBuilder(image: ''),
+  GridItemBuilder(image: ''),
+  GridItemBuilder(image: ''),
+  GridItemBuilder(image: ''),
+  GridItemBuilder(image: ''),
+];
+
+class GridItemBuilder extends StatelessWidget {
+  final String image;
+
+  const GridItemBuilder({Key? key, required this.image});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimens.minRadiusApplication),
+        ),
+        margin: EdgeInsets.all(Dimens.minMarginApplication),
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child:
+          FlutterLogo(),
         ),
       ),
     );

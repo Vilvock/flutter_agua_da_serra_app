@@ -92,6 +92,7 @@ class _OnboardingState extends State<Onboarding> {
                                     padding: const EdgeInsets.only(right: 4),
                                     child: DotIndicator(
                                       isActive: index == _pageIndex,
+                                      color: Colors.white,
                                     ),
                                   )),
                         ],
