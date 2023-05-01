@@ -11,6 +11,7 @@ import 'package:flutter_agua_da_serra_app/ui/main/cart.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/favorites.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/main_menu.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/orders.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -361,11 +362,55 @@ class GridItemBuilder extends StatelessWidget {
         ),
         margin: EdgeInsets.all(Dimens.minMarginApplication),
         child: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child:
-          FlutterLogo(),
-        ),
+            width: double.infinity,
+            height: double.infinity,
+            child: Column(
+              children: [
+                Container(
+                    margin: EdgeInsets.only(right: Dimens.minMarginApplication),
+                    child: ClipRRect(
+                        borderRadius:
+                            BorderRadius.circular(Dimens.minRadiusApplication),
+                        child: Image.asset(
+                          'images/person.jpg',
+                          height: 90,
+                          width: double.infinity,
+                        ))),
+                SmoothStarRating(
+                    allowHalfRating: false,
+                    onRated: (v) {
+                    },
+                    starCount: 5,
+                    rating: 2,
+                    size: 20.0,
+                    isReadOnly:true,
+                    filledIconData: Icons.blur_off,
+                    halfFilledIconData: Icons.blur_on,
+                    color: Colors.green,
+                    borderColor: Colors.green,
+                    spacing:0.0
+                ),
+                Text(
+                  Strings.longLoremIpsum,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: Dimens.textSize5,
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: Dimens.marginApplication),
+                Text(
+                  "50,00",
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: Dimens.textSize6,
+                    color: Colors.black,
+                  ),
+                ),
+              ],
+            )),
       ),
     );
   }
