@@ -25,10 +25,35 @@ void main() {
       '/ui/pdf_viewer': (context) => PdfViewer(),
       '/ui/categories': (context) => Categories(),
 
+      //toast
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       //   content: Text("Sending Message"),
       // ))
 
+
+      //lista horizontal
+      // Container(
+      //   height: 180,
+      //   child: ListView.builder(
+      //     scrollDirection: Axis.horizontal,
+      //     itemCount: /*numbersList.length*/ 2,
+      //     itemBuilder: (context, index) {
+      //       return Card(
+      //         shape: RoundedRectangleBorder(
+      //           borderRadius: BorderRadius.circular(
+      //               Dimens.minRadiusApplication),
+      //         ),
+      //         margin:
+      //             EdgeInsets.all(Dimens.minMarginApplication),
+      //         child: Container(
+      //           width: MediaQuery.of(context).size.width * 0.80,
+      //           padding:
+      //               EdgeInsets.all(Dimens.paddingApplication),
+      //         ),
+      //       );
+      //     },
+      //   ),
+      // ),
     },
   ));
 }

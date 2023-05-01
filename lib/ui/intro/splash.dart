@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 
 
@@ -21,14 +22,10 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Color(0x15478E),
-      statusBarBrightness: Brightness.dark,
-    ));
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsets.all(32),
+        padding: EdgeInsets.all(Dimens.paddingApplication),
         child: Center(
           child: Image.asset(
             'images/main_logo_1.png',
