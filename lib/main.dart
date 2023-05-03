@@ -8,6 +8,7 @@ import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/menu/categories.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/menu/profile.dart';
+import 'package:flutter_agua_da_serra_app/ui/main/menu/user_addresses.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/product/product_detail.dart';
 
 void main() {
@@ -26,6 +27,7 @@ void main() {
       '/ui/pdf_viewer': (context) => PdfViewer(),
       '/ui/categories': (context) => Categories(),
       '/ui/product_detail': (context) => ProductDetail(),
+      '/ui/user_addresses': (context) => UserAddresses()
 
       //toast
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
