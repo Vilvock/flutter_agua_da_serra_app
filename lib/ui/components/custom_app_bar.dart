@@ -5,12 +5,14 @@ import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   String title;
   bool isVisibleBackButton;
+  bool isVisibleFavoriteButton;
 
-  CustomAppBar({this.title: "", this.isVisibleBackButton = false});
+  CustomAppBar({this.title: "", this.isVisibleBackButton = false, this.isVisibleFavoriteButton = false});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      actions: _returnFavoriteIcon(this.isVisibleFavoriteButton, context),
       automaticallyImplyLeading: this.isVisibleBackButton,
       leading: _returnBackIcon(this.isVisibleBackButton, context),
       backgroundColor: Colors.white,
@@ -55,6 +57,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
 
     return null;
+  }
+
+  List<Widget> _returnFavoriteIcon(bool isVisible, BuildContext context) {
+
+    List<Widget> _widgetList = <Widget>[];
+
+    if (isVisible) {
+      _widgetList.add(IconButton(
+        icon: Icon(
+          Icons.star_outline,
+          color: Colors.black,
+        ),
+        onPressed: () {
+          // do something
+        },
+      ));
+    }
+
+    return _widgetList;
   }
 
   @override

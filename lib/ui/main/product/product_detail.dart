@@ -1,0 +1,227 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/res/dimens.dart';
+import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
+import 'package:flutter_agua_da_serra_app/res/strings.dart';
+import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
+import 'package:flutter_agua_da_serra_app/ui/components/dot_indicator.dart';
+import 'package:flutter_agua_da_serra_app/ui/components/progress_hud.dart';
+import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
+
+class ProductDetail extends StatefulWidget {
+  const ProductDetail({Key? key}) : super(key: key);
+
+  @override
+  State<ProductDetail> createState() => _ProductDetail();
+}
+
+class _ProductDetail extends State<ProductDetail> {
+  bool _isLoading = false;
+  int _pageIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: CustomAppBar(
+            title: "Detalhes da oferta", isVisibleBackButton: true, isVisibleFavoriteButton: true),
+        body: ProgressHUD(
+            inAsyncCall: _isLoading,
+            valueColor: AlwaysStoppedAnimation<Color>(OwnerColors.colorPrimary),
+            child: RefreshIndicator(
+              onRefresh: _pullRefresh,
+              child: Stack(children: [
+                SingleChildScrollView(
+                    child: Container(
+                  padding: EdgeInsets.only(bottom: 100),
+                  child: Column(
+                    children: [
+                      CarouselSlider(
+                        items: carouselItems,
+                        options: CarouselOptions(
+                          height: 160,
+                          autoPlay: false,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              _pageIndex = index;
+                            });
+                          },
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          ...List.generate(
+                              carouselItems.length,
+                              (index) => Padding(
+                                    padding: const EdgeInsets.only(right: 4),
+                                    child: DotIndicator(
+                                        isActive: index == _pageIndex,
+                                        color: OwnerColors.colorPrimaryDark),
+                                  )),
+                        ],
+                      ),
+                      SizedBox(height: Dimens.minMarginApplication),
+                      Container(
+                          margin: EdgeInsets.all(Dimens.marginApplication),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                Strings.longLoremIpsum,
+                                maxLines: 3,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: Dimens.textSize5,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(height: Dimens.minMarginApplication),
+                              Text(
+                                Strings.longLoremIpsum,
+                                /*maxLines: 2,*/
+                                // overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: Dimens.textSize4,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(height: Dimens.minMarginApplication),
+                              Row(
+                                children: [
+                                  SmoothStarRating(
+                                      allowHalfRating: false,
+                                      onRated: (v) {},
+                                      starCount: 5,
+                                      rating: 2,
+                                      size: 16.0,
+                                      isReadOnly: true,
+                                      color: Colors.amber,
+                                      borderColor: Colors.amber,
+                                      spacing: 0.0),
+                                  SizedBox(width: Dimens.minMarginApplication),
+                                  Text(
+                                    "Avaliações (xx)",
+                                    /*maxLines: 2,*/
+                                    // overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontFamily: 'Inter',
+                                      fontSize: Dimens.textSize4,
+                                      color: Colors.black45,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: Dimens.marginApplication),
+                              Text(
+                                "50,00",
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: Dimens.textSize6,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Text(
+                                "(50% desconto)",
+                                style: TextStyle(
+                                  fontFamily: 'Inter',
+                                  fontSize: Dimens.textSize4,
+                                  color: OwnerColors.colorPrimaryDark,
+                                ),
+                              ),
+                              SizedBox(height: Dimens.marginApplication),
+                              Row(children: [
+                                Text(
+                                  "Quantidade",
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    fontSize: Dimens.textSize5,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(width: Dimens.minMarginApplication),
+                                FloatingActionButton(
+                                  mini: true,
+                                  child: Icon(Icons.chevron_left,
+                                      color: Colors.black),
+                                  backgroundColor: Colors.white,
+                                  onPressed: () {
+                                    // Add your onPressed code here!
+                                  },
+                                ),
+                                SizedBox(width: Dimens.minMarginApplication),
+                                Text(
+                                  "1",
+                                  style: TextStyle(
+                                    fontFamily: 'Inter',
+                                    fontSize: Dimens.textSize5,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(width: Dimens.minMarginApplication),
+                                FloatingActionButton(
+                                  mini: true,
+                                  child: Icon(Icons.chevron_right,
+                                      color: Colors.black),
+                                  backgroundColor: Colors.white,
+                                  onPressed: () {
+                                    // Add your onPressed code here!
+                                  },
+                                ),
+                              ])
+                            ],
+                          ))
+                    ],
+                  ),
+                )),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                        margin: EdgeInsets.all(Dimens.minMarginApplication),
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  OwnerColors.colorPrimary),
+                            ),
+                            onPressed: () {},
+                            child: Row( children: [
+                              Icon(Icons.shopping_cart_outlined),
+                              SizedBox(width: Dimens.minMarginApplication),
+                              Text(
+                                "Adicionar ao carrinho",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontSize: Dimens.textSize8,
+                                    color: Colors.white,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.normal,
+                                    decoration: TextDecoration.none),
+                              )
+                            ],)))
+                  ],
+
+                )
+              ]),
+            )));
+  }
+
+  Future<void> _pullRefresh() async {
+    setState(() {
+      _isLoading = true;
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text("Sending Message"),
+      ));
+      _isLoading = false;
+    });
+  }
+}
