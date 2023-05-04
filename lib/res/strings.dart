@@ -1,7 +1,21 @@
-import 'dart:ui';
 
 abstract class Strings {
 
+  static const String no_connection = "Sem conexão";
+  static const String no_connection_description = "Certifique-se de que está conectado a internet e tente novamente.";
+  static const String understood = "Entendido";
+  static const String error = "Ocorreu um erro";
+  static const String foreign_error = "Erro desconhecido";
+  static const String try_again = "Tentar novamente";
+  static const String cancel = "Cancelar";
+  static const String disable_gps = "GPS desativado!";
+  static const String disable_gps_description = "Seu GPS parece estar desativado, é necessário ativá-lo para prosseguir.";
+  static const String enable = "Ativar";
+  static const String exit = "Sair";
+  static const String logout = "Você tem certeza que deseja realizar seu logout?";
+  static const String yes = "Sim";
+  static const String no = "Não";
+  static const String attention = "Atenção";
 
   static const String longLoremIpsum = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
       " Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, "

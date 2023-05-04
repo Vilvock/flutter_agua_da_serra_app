@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
+import 'package:flutter_agua_da_serra_app/res/strings.dart';
+import 'package:flutter_agua_da_serra_app/ui/components/alert_dialog_generic.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
 
 class MainMenu extends StatefulWidget {
@@ -28,7 +30,7 @@ class _MainMenu extends State<MainMenu> {
                     children: [
                       Container(
                         margin:
-                            EdgeInsets.only(right: Dimens.marginApplication),
+                        EdgeInsets.only(right: Dimens.marginApplication),
                         child: CircleAvatar(
                           backgroundImage: AssetImage('images/person.jpg'),
                           radius: 32,
@@ -62,54 +64,55 @@ class _MainMenu extends State<MainMenu> {
                       IconButton(
                         icon: Icon(Icons.arrow_forward_ios,
                             color: Colors.black38),
-                        onPressed: () => {
-
-                            Navigator.pushNamed(context, "/ui/profile")
-                        },
+                        onPressed: () =>
+                        {Navigator.pushNamed(context, "/ui/profile")},
                       )
                     ],
                   ),
                 )),
-            Container(
-              padding: EdgeInsets.all(Dimens.maxPaddingApplication),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: Dimens.minMarginApplication),
-                    child: IconButton(
-                      icon:
-                          Icon(Icons.pin_drop_outlined, color: Colors.black),
-                      onPressed: () => {},
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Meus endereços",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: Dimens.textSize5,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+
+            GestureDetector(
+                child: Container(
+                  padding: EdgeInsets.all(Dimens.maxPaddingApplication),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(Dimens.minMarginApplication),
+                        child:
+                        Icon(Icons.pin_drop_outlined, color: Colors.black),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Meus endereços",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: Dimens.textSize5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(height: Dimens.minMarginApplication),
+                            Text(
+                              "Atualize ou determine seu endereço principal",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: Dimens.textSize4,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: Dimens.minMarginApplication),
-                        Text(
-                          "Atualize ou determine seu endereço principal",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: Dimens.textSize4,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+                onTap: () {
+                  Navigator.pushNamed(context, "/ui/user_addresses");
+                }),
+
             Divider(
               color: Colors.black12,
               height: 2,
@@ -117,46 +120,44 @@ class _MainMenu extends State<MainMenu> {
               indent: Dimens.marginApplication,
               endIndent: Dimens.marginApplication,
             ),
-            Container(
-              padding: EdgeInsets.all(Dimens.maxPaddingApplication),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: Dimens.minMarginApplication),
-                    child: IconButton(
-                      icon:
-                      Icon(Icons.category_outlined, color: Colors.black),
-                      onPressed: () => {},
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Categorias",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: Dimens.textSize5,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+            GestureDetector(
+                child: Container(
+                  padding: EdgeInsets.all(Dimens.maxPaddingApplication),
+                  child: Row(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.all(Dimens.minMarginApplication),
+                          child: Icon(Icons.category_outlined,
+                              color: Colors.black)),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Categorias",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: Dimens.textSize5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(height: Dimens.minMarginApplication),
+                            Text(
+                              "Visualize categorias de ofertas",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: Dimens.textSize4,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: Dimens.minMarginApplication),
-                        Text(
-                          "Visualize categorias de ofertas",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: Dimens.textSize4,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+                onTap: () {}),
             Divider(
               color: Colors.black12,
               height: 2,
@@ -164,46 +165,46 @@ class _MainMenu extends State<MainMenu> {
               indent: Dimens.marginApplication,
               endIndent: Dimens.marginApplication,
             ),
-            Container(
-              padding: EdgeInsets.all(Dimens.maxPaddingApplication),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: Dimens.minMarginApplication),
-                    child: IconButton(
-                      icon:
-                      Icon(Icons.contact_support_outlined, color: Colors.black),
-                      onPressed: () => {},
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Suporte",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: Dimens.textSize5,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+            GestureDetector(
+                child: Container(
+                  padding: EdgeInsets.all(Dimens.maxPaddingApplication),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(Dimens.minMarginApplication),
+                        child: Icon(Icons.contact_support_outlined,
+                            color: Colors.black),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Suporte",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: Dimens.textSize5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(height: Dimens.minMarginApplication),
+                            Text(
+                              "Contacte o suporte",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: Dimens.textSize4,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: Dimens.minMarginApplication),
-                        Text(
-                          "Contacte o suporte",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: Dimens.textSize4,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+                onTap: () {}),
+
             Divider(
               color: Colors.black12,
               height: 2,
@@ -211,46 +212,65 @@ class _MainMenu extends State<MainMenu> {
               indent: Dimens.marginApplication,
               endIndent: Dimens.marginApplication,
             ),
-            Container(
-              padding: EdgeInsets.all(Dimens.maxPaddingApplication),
-              child: Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(right: Dimens.minMarginApplication),
-                    child: IconButton(
-                      icon:
-                      Icon(Icons.login_outlined, color: Colors.black),
-                      onPressed: () => {},
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Deslogar desta conta",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: Dimens.textSize5,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
+
+            GestureDetector(
+                child: Container(
+                  padding: EdgeInsets.all(Dimens.maxPaddingApplication),
+                  child: Row(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(Dimens.minMarginApplication),
+                        child: Icon(Icons.logout_outlined, color: Colors.black),
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Sair",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: Dimens.textSize5,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            SizedBox(height: Dimens.minMarginApplication),
+                            Text(
+                              "Deslogar desta conta",
+                              style: TextStyle(
+                                fontFamily: 'Inter',
+                                fontSize: Dimens.textSize4,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(height: Dimens.minMarginApplication),
-                        Text(
-                          "Deslogar desta conta",
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: Dimens.textSize4,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return GenericAlertDialog(
+                          title: Strings.attention,
+                          content: Strings.logout,
+                          btnBack: TextButton(
+                              child: Text(Strings.no),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              }),
+                          btnConfirm: TextButton(
+                              child: Text(Strings.yes),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              }));
+                    },
+                  );
+                }),
+
             Divider(
               color: Colors.black12,
               height: 2,

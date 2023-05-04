@@ -25,37 +25,39 @@ class GenericAlertDialog extends StatefulWidget {
 class _GenericAlertDialogState extends State<GenericAlertDialog> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: SizedBox(
-            height: 280,
+    return Column(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
             child: Card(
-              color: OwnerColors.colorPrimaryDark,
-              margin: EdgeInsets.all(16),
+              color: Colors.white,
+              margin: EdgeInsets.all(Dimens.marginApplication),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(Dimens.radiusApplication),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(Dimens.paddingApplication),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       widget.title!,
                       style: TextStyle(
-                          fontSize: Dimens.textSize6,
-                          fontWeight: FontWeight.w600,
+                          fontSize: Dimens.textSize7,
                           fontFamily: 'Inter',
-                          color: OwnerColors.colorPrimaryDark),
+                          color: Colors.black),
                     ),
+                    SizedBox(height: Dimens.marginApplication),
                     Text(
                       widget.content!,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                          fontSize: Dimens.textSize4,
-                          fontWeight: FontWeight.w400,
+                          fontSize: Dimens.textSize5,
                           fontFamily: 'Inter',
-                          color: OwnerColors.colorPrimaryDark),
+                          color: Colors.black),
                     ),
+                    SizedBox(height: Dimens.marginApplication),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [widget.btnBack!, widget.btnConfirm!],
@@ -63,6 +65,8 @@ class _GenericAlertDialogState extends State<GenericAlertDialog> {
                   ],
                 ),
               ),
-            )));
+            ),
+          )
+        ]);
   }
 }
