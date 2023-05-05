@@ -210,7 +210,9 @@ class _Cart extends State<Cart> {
                                           MaterialStateProperty.all(
                                               OwnerColors.colorPrimary),
                                     ),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, "/ui/method_payment");
+                                    },
                                     child: Text(
                                       "Escolher método de pagamento",
                                       textAlign: TextAlign.center,

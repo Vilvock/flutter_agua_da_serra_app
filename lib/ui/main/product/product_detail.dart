@@ -69,41 +69,42 @@ class _ProductDetail extends State<ProductDetail> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SmoothStarRating(
+                                  allowHalfRating: true,
+                                  onRated: (v) {},
+                                  starCount: 5,
+                                  rating: 2,
+                                  size: 24.0,
+                                  isReadOnly: true,
+                                  color: Colors.amber,
+                                  borderColor: Colors.amber,
+                                  spacing: 0.0),
+                              SizedBox(height: Dimens.minMarginApplication),
                               Text(
                                 Strings.longLoremIpsum,
                                 maxLines: 3,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontFamily: 'Inter',
-                                  fontSize: Dimens.textSize5,
+                                  fontSize: Dimens.textSize6,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
                               ),
-                              SizedBox(height: Dimens.minMarginApplication),
+                              SizedBox(height: Dimens.marginApplication),
                               Text(
                                 Strings.longLoremIpsum,
                                 /*maxLines: 2,*/
                                 // overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontFamily: 'Inter',
-                                  fontSize: Dimens.textSize4,
+                                  fontSize: Dimens.textSize5,
                                   color: Colors.black,
                                 ),
                               ),
                               SizedBox(height: Dimens.minMarginApplication),
                               Row(
                                 children: [
-                                  SmoothStarRating(
-                                      allowHalfRating: true,
-                                      onRated: (v) {},
-                                      starCount: 5,
-                                      rating: 2,
-                                      size: 16.0,
-                                      isReadOnly: true,
-                                      color: Colors.amber,
-                                      borderColor: Colors.amber,
-                                      spacing: 0.0),
                                   SizedBox(width: Dimens.minMarginApplication),
                                   Text(
                                     "Avaliações (xx)",
@@ -122,8 +123,9 @@ class _ProductDetail extends State<ProductDetail> {
                                 "50,00",
                                 style: TextStyle(
                                   fontFamily: 'Inter',
-                                  fontSize: Dimens.textSize6,
+                                  fontSize: Dimens.textSize8,
                                   color: Colors.black,
+                                  fontWeight: FontWeight.bold
                                 ),
                               ),
                               Text(

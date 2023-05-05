@@ -20,7 +20,7 @@ class _MethodPayment extends State<MethodPayment> {
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar:
-            CustomAppBar(title: "Escolha um Método de pagamento", isVisibleBackButton: false),
+            CustomAppBar(title: "Escolha um Método de pagamento", isVisibleBackButton: true),
         body: ProgressHUD(
             inAsyncCall: _isLoading,
             valueColor: AlwaysStoppedAnimation<Color>(OwnerColors.colorPrimary),
