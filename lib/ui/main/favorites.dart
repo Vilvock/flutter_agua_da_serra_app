@@ -100,7 +100,7 @@ class _Favorites extends State<Favorites> {
                                   "Adicionar ao carrinho",
                                   style: TextStyle(
                                     fontFamily: 'Inter',
-                                    fontSize: Dimens.textSize5,
+                                    fontSize: Dimens.textSize4,
                                     color: Colors.black,
                                   ),
                                 ),
@@ -117,7 +117,7 @@ class _Favorites extends State<Favorites> {
                                   "Remover",
                                   style: TextStyle(
                                     fontFamily: 'Inter',
-                                    fontSize: Dimens.textSize5,
+                                    fontSize: Dimens.textSize4,
                                     color: Colors.black,
                                   ),
                                 ),

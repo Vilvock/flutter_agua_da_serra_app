@@ -68,7 +68,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (isVisibleFavoriteButton) {
       _widgetList.add(IconButton(
         icon: Icon(
-          Icons.star_outline,
+          Icons.favorite_border_outlined,
           color: Colors.black,
         ),
         onPressed: () {

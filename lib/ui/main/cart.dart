@@ -97,31 +97,37 @@ class _Cart extends State<Cart> {
                                     ),
                                     SizedBox(
                                         height: Dimens.minMarginApplication),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "Em andamento",
-                                          style: TextStyle(
-                                            fontFamily: 'Inter',
-                                            fontSize: Dimens.textSize5,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        VerticalDivider(
-                                          color: Colors.black12,
-                                          width: 2,
-                                          thickness: 1.5,
-                                        ),
-                                        Text(
-                                          "Em andamento",
-                                          style: TextStyle(
-                                            fontFamily: 'Inter',
-                                            fontSize: Dimens.textSize5,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                      ],
-                                    )
+                                    IntrinsicHeight(
+                                        child: Row(
+                                          children: [
+                                            Icon(size: 20,Icons.favorite_border_outlined),
+                                            Text(
+                                              "Mover para os favoritos",
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: Dimens.textSize4,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(width: Dimens.minMarginApplication),
+                                            VerticalDivider(
+                                              color: Colors.black12,
+                                              width: 2,
+                                              thickness: 1.5,
+                                            ),
+                                            SizedBox(width: Dimens.minMarginApplication),
+
+                                            Icon(size: 20,Icons.delete_outline),
+                                            Text(
+                                              "Remover",
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: Dimens.textSize4,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ))
                                   ],
                                 ),
                               )

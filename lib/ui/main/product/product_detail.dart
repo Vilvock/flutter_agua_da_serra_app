@@ -95,7 +95,7 @@ class _ProductDetail extends State<ProductDetail> {
                               Row(
                                 children: [
                                   SmoothStarRating(
-                                      allowHalfRating: false,
+                                      allowHalfRating: true,
                                       onRated: (v) {},
                                       starCount: 5,
                                       rating: 2,

@@ -85,7 +85,7 @@ class BottomNavBar extends StatelessWidget {
           label: 'Meus Pedidos',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.star_outline),
+          icon: Icon(Icons.favorite_border_outlined),
           label: 'Meus Favoritos',
         ),
         BottomNavigationBarItem(
@@ -175,98 +175,93 @@ class _ContainerHomeState extends State<ContainerHome> {
                         itemBuilder: (context, index) {
                           return InkWell(
                               onTap: () => {
-
-                                Navigator.pushNamed(context, "/ui/product_detail")
-                              },
-                            child:
-                            Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    Dimens.minRadiusApplication),
-                              ),
-                              margin: EdgeInsets.all(Dimens.minMarginApplication),
-                              child: Container(
-                                padding:
-                                EdgeInsets.all(Dimens.paddingApplication),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        margin: EdgeInsets.only(
-                                            right: Dimens.minMarginApplication),
-                                        child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(
-                                                Dimens.minRadiusApplication),
-                                            child: Image.asset(
-                                              'images/person.jpg',
-                                              height: 90,
-                                              width: 90,
-                                            ))),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            Strings.shortLoremIpsum,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontFamily: 'Inter',
-                                              fontSize: Dimens.textSize6,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                              height:
-                                              Dimens.minMarginApplication),
-                                          Text(
-                                            Strings.longLoremIpsum,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                              fontFamily: 'Inter',
-                                              fontSize: Dimens.textSize5,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                              height: Dimens.marginApplication),
-                                          Text(
-                                            "Ver detalhes",
-                                            style: TextStyle(
-                                              fontFamily: 'Inter',
-                                              fontSize: Dimens.textSize5,
-                                              color: OwnerColors.colorPrimaryDark,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                              height:
-                                              Dimens.minMarginApplication),
-                                          Divider(
-                                            color: Colors.black12,
-                                            height: 2,
-                                            thickness: 1.5,
-                                          ),
-                                          SizedBox(
-                                              height:
-                                              Dimens.minMarginApplication),
-                                          Text(
-                                            "Em andamento",
-                                            style: TextStyle(
-                                              fontFamily: 'Inter',
-                                              fontSize: Dimens.textSize5,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                                    Navigator.pushNamed(
+                                        context, "/ui/product_detail")
+                                  },
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      Dimens.minRadiusApplication),
                                 ),
-                              ),
-                            ));
+                                margin:
+                                    EdgeInsets.all(Dimens.minMarginApplication),
+                                child: Container(
+                                  padding:
+                                      EdgeInsets.all(Dimens.paddingApplication),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          margin: EdgeInsets.only(
+                                              right:
+                                                  Dimens.minMarginApplication),
+                                          child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(Dimens
+                                                      .minRadiusApplication),
+                                              child: Image.asset(
+                                                'images/person.jpg',
+                                                height: 90,
+                                                width: 90,
+                                              ))),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              Strings.shortLoremIpsum,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: Dimens.textSize6,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height: Dimens
+                                                    .minMarginApplication),
+                                            Text(
+                                              Strings.longLoremIpsum,
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: Dimens.textSize5,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                height:
+                                                    Dimens.marginApplication),
+                                            Text(
+                                              "R 50,00",
+                                              style: TextStyle(
+                                                fontFamily: 'Inter',
+                                                fontSize: Dimens.textSize6,
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      FloatingActionButton(
+                                        mini: true,
+                                        child: Icon(
+                                            Icons.favorite_border_outlined,
+                                            color: Colors.black),
+                                        backgroundColor: Colors.white,
+                                        onPressed: () {
+                                          // Add your onPressed code here!
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ));
                         },
                       ),
                       Container(
@@ -292,6 +287,7 @@ class _ContainerHomeState extends State<ContainerHome> {
                       ),
                       Container(
                         child: GridView.count(
+                          childAspectRatio: 0.75,
                           primary: false,
                           shrinkWrap: true,
                           crossAxisCount: 2,
@@ -368,55 +364,60 @@ class GridItemBuilder extends StatelessWidget {
         ),
         margin: EdgeInsets.all(Dimens.minMarginApplication),
         child: Container(
-            width: double.infinity,
-            height: double.infinity,
             child: Column(
-              children: [
-                Container(
-                    margin: EdgeInsets.only(right: Dimens.minMarginApplication),
-                    child: ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(Dimens.minRadiusApplication),
-                        child: Image.asset(
-                          'images/person.jpg',
-                          height: 90,
-                          width: double.infinity,
-                        ))),
-                SmoothStarRating(
-                    allowHalfRating: false,
-                    onRated: (v) {
-                    },
-                    starCount: 5,
-                    rating: 2,
-                    size: 20.0,
-                    isReadOnly:true,
-                    filledIconData: Icons.blur_off,
-                    halfFilledIconData: Icons.blur_on,
-                    color: Colors.green,
-                    borderColor: Colors.green,
-                    spacing:0.0
-                ),
-                Text(
-                  Strings.longLoremIpsum,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: Dimens.textSize5,
-                    color: Colors.black,
+          children: [
+            Container(
+                width: double.infinity,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(Dimens.minRadiusApplication),
+                        topRight: Radius.circular(Dimens.minRadiusApplication)),
+                    child: Image.asset(
+                      fit: BoxFit.fitWidth,
+                      'images/person.jpg',
+                      height: 140,
+                    ))),
+            SizedBox(height: Dimens.minMarginApplication),
+            Container(
+              padding: EdgeInsets.all(Dimens.minPaddingApplication),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SmoothStarRating(
+                      allowHalfRating: true,
+                      onRated: (v) {},
+                      starCount: 5,
+                      rating: 2,
+                      size: 16.0,
+                      isReadOnly: true,
+                      color: Colors.amber,
+                      borderColor: Colors.amber,
+                      spacing: 0.0),
+                  SizedBox(height: Dimens.minMarginApplication),
+                  Text(
+                    Strings.longLoremIpsum,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: Dimens.textSize5,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                SizedBox(height: Dimens.marginApplication),
-                Text(
-                  "50,00",
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: Dimens.textSize6,
-                    color: Colors.black,
+                  SizedBox(height: Dimens.marginApplication),
+                  Text(
+                    "50,00",
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: Dimens.textSize6,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-              ],
-            )),
+                ],
+              ),
+            )
+          ],
+        )),
       ),
     );
   }
