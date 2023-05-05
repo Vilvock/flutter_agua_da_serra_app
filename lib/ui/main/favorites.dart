@@ -92,23 +92,29 @@ class _Favorites extends State<Favorites> {
                               thickness: 1.5,
                             ),
                             SizedBox(height: Dimens.minMarginApplication),
-                            Row(
+                            IntrinsicHeight(
+                                child: Row(
                               children: [
+                                Icon(size: 20,Icons.shopping_cart_outlined),
                                 Text(
-                                  "Em andamento",
+                                  "Adicionar ao carrinho",
                                   style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: Dimens.textSize5,
                                     color: Colors.black,
                                   ),
                                 ),
+                                SizedBox(width: Dimens.minMarginApplication),
                                 VerticalDivider(
                                   color: Colors.black12,
                                   width: 2,
                                   thickness: 1.5,
                                 ),
+                                SizedBox(width: Dimens.minMarginApplication),
+
+                                Icon(size: 20,Icons.delete_outline),
                                 Text(
-                                  "Em andamento",
+                                  "Remover",
                                   style: TextStyle(
                                     fontFamily: 'Inter',
                                     fontSize: Dimens.textSize5,
@@ -116,7 +122,7 @@ class _Favorites extends State<Favorites> {
                                   ),
                                 ),
                               ],
-                            )
+                            ))
                           ],
                         ),
                       )

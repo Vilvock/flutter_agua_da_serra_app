@@ -5,6 +5,8 @@ import 'package:flutter_agua_da_serra_app/ui/auth/register.dart';
 import 'package:flutter_agua_da_serra_app/ui/intro/onboarding.dart';
 import 'package:flutter_agua_da_serra_app/ui/intro/splash.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
+import 'package:flutter_agua_da_serra_app/ui/main/checkout_flow/method_payment.dart';
+import 'package:flutter_agua_da_serra_app/ui/main/checkout_flow/sucess.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/menu/categories.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/menu/profile.dart';
@@ -27,7 +29,9 @@ void main() {
       '/ui/pdf_viewer': (context) => PdfViewer(),
       '/ui/categories': (context) => Categories(),
       '/ui/product_detail': (context) => ProductDetail(),
-      '/ui/user_addresses': (context) => UserAddresses()
+      '/ui/user_addresses': (context) => UserAddresses(),
+      '/ui/method_payment': (context) => MethodPayment(),
+      '/ui/sucess': (context) => Sucess()
 
       //toast
       // ScaffoldMessenger.of(context).showSnackBar(SnackBar(

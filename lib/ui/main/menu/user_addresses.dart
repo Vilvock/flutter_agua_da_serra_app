@@ -19,7 +19,7 @@ class _UserAddresses extends State<UserAddresses> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: CustomAppBar(title: "Meus Endereços", isVisibleBackButton: false),
+      appBar: CustomAppBar(title: "Meus Endereços", isVisibleBackButton: true, isVisibleAddressButton: true),
       body: ProgressHUD(
         inAsyncCall: _isLoading,
         valueColor: AlwaysStoppedAnimation<Color>(OwnerColors.colorPrimary),
@@ -31,57 +31,40 @@ class _UserAddresses extends State<UserAddresses> {
               return Card(
                 shape: RoundedRectangleBorder(
                   borderRadius:
-                  BorderRadius.circular(Dimens.minRadiusApplication),
+                      BorderRadius.circular(Dimens.minRadiusApplication),
                 ),
                 margin: EdgeInsets.all(Dimens.minMarginApplication),
                 child: Container(
                   padding: EdgeInsets.all(Dimens.paddingApplication),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                          margin: EdgeInsets.only(
-                              right: Dimens.minMarginApplication),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  Dimens.minRadiusApplication),
-                              child: Image.asset(
-                                'images/person.jpg',
-                                height: 90,
-                                width: 90,
-                              ))),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: Radio(
+                            value: "radio value",
+                            groupValue: "group value",
+                            onChanged: (value) {
+                            }),
+                      ),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              Strings.shortLoremIpsum,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                              "Endereço selecionado",
                               style: TextStyle(
                                 fontFamily: 'Inter',
-                                fontSize: Dimens.textSize6,
+                                fontSize: Dimens.textSize4,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.black,
+                                color: OwnerColors.colorPrimaryDark,
                               ),
                             ),
                             SizedBox(height: Dimens.minMarginApplication),
                             Text(
                               Strings.longLoremIpsum,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: Dimens.textSize5,
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(height: Dimens.marginApplication),
-                            Text(
-                              "50,00",
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: Dimens.textSize6,
                                 color: Colors.black,
                               ),
                             ),
@@ -91,32 +74,6 @@ class _UserAddresses extends State<UserAddresses> {
                               height: 2,
                               thickness: 1.5,
                             ),
-                            SizedBox(height: Dimens.minMarginApplication),
-                            Row(
-                              children: [
-                                Text(
-                                  "Em andamento",
-                                  style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: Dimens.textSize5,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                VerticalDivider(
-                                  color: Colors.black12,
-                                  width: 2,
-                                  thickness: 1.5,
-                                ),
-                                Text(
-                                  "Em andamento",
-                                  style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontSize: Dimens.textSize5,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ],
-                            )
                           ],
                         ),
                       )

@@ -6,13 +6,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   String title;
   bool isVisibleBackButton;
   bool isVisibleFavoriteButton;
+  bool isVisibleAddressButton;
 
-  CustomAppBar({this.title: "", this.isVisibleBackButton = false, this.isVisibleFavoriteButton = false});
+  CustomAppBar({this.title: "", this.isVisibleBackButton = false,
+    this.isVisibleFavoriteButton = false, this.isVisibleAddressButton = false});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: _returnFavoriteIcon(this.isVisibleFavoriteButton, context),
+      actions: _returnFavoriteIcon(this.isVisibleFavoriteButton, this.isVisibleAddressButton, context),
       automaticallyImplyLeading: this.isVisibleBackButton,
       leading: _returnBackIcon(this.isVisibleBackButton, context),
       backgroundColor: Colors.white,
@@ -59,14 +61,26 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return null;
   }
 
-  List<Widget> _returnFavoriteIcon(bool isVisible, BuildContext context) {
+  List<Widget> _returnFavoriteIcon(bool isVisibleFavoriteButton, bool isVisibleAddressButton, BuildContext context) {
 
     List<Widget> _widgetList = <Widget>[];
 
-    if (isVisible) {
+    if (isVisibleFavoriteButton) {
       _widgetList.add(IconButton(
         icon: Icon(
           Icons.star_outline,
+          color: Colors.black,
+        ),
+        onPressed: () {
+          // do something
+        },
+      ));
+    }
+
+    if (isVisibleAddressButton) {
+      _widgetList.add(IconButton(
+        icon: Icon(
+          Icons.add_location_alt,
           color: Colors.black,
         ),
         onPressed: () {
