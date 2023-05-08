@@ -1,15 +1,19 @@
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
+import 'package:flutter_agua_da_serra_app/model/user.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 import 'package:flutter_agua_da_serra_app/ui/auth/register.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
+import 'package:flutter_agua_da_serra_app/web_service/service_response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/custom_app_bar.dart';
 
-// VAI NA LINHA 107
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -21,6 +25,46 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return loginScreen();
+  }
+
+  String _response = '';
+  final postRequest = PostRequest();
+  User? _user;
+
+  @override
+  void initState() {
+    super.initState();
+    makePostRequest();
+  }
+
+  Future<void> makePostRequest() async {
+    try {
+      final body = {
+        "email": "carlos@teste.com.br",
+        "password": "123456",
+        "token": "J4HQi3e0"
+      };
+
+      final response = await postRequest.sendPostRequest("usuarios/login/", body);
+      final parsedResponse = jsonDecode(response);
+      final user = User.fromJson(parsedResponse);
+      setState(() {
+        _response = response;
+        _user = user;
+        saveUserToPreferences(user);
+      });
+    } catch (e) {
+      setState(() {
+        _response = 'Erro durante a solicitação POST: $e';
+      });
+      print('Erro durante a solicitação POST: $e');
+    }
+  }
+
+  Future<void> saveUserToPreferences(User user) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userData = user.toJson();
+    await prefs.setString('user', jsonEncode(userData));
   }
 }
 
