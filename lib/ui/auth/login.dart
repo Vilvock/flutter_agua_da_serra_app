@@ -46,18 +46,24 @@ class _LoginState extends State<Login> {
       };
 
       final response = await postRequest.sendPostRequest("usuarios/login/", body);
-      final parsedResponse = jsonDecode(response);
-      final user = User.fromJson(parsedResponse);
+      // final parsedResponse = jsonDecode(response);
+
+      List<Map<String, dynamic>> _map = [];
+
+      _map = List<Map<String, dynamic>>.from(jsonDecode(response));
+      final user = User.fromJson(_map[0]);
       setState(() {
         _response = response;
         _user = user;
         saveUserToPreferences(user);
       });
+
+      print('HTTP: $_map');
     } catch (e) {
       setState(() {
-        _response = 'Erro durante a solicitação POST: $e';
+        _response = 'ResponseError: $e';
       });
-      print('Erro durante a solicitação POST: $e');
+      print(_response);
     }
   }
 
