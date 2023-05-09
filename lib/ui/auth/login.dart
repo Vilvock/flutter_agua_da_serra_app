@@ -10,6 +10,7 @@ import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 import 'package:flutter_agua_da_serra_app/ui/auth/register.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
+import 'package:flutter_agua_da_serra_app/web_service/links.dart';
 import 'package:flutter_agua_da_serra_app/web_service/service_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -45,7 +46,7 @@ class _LoginState extends State<Login> {
 
       print('HTTP_BODY: $body');
 
-      final json = await postRequest.sendPostRequest("usuarios/login/", body);
+      final json = await postRequest.sendPostRequest(Links.LOGIN, body);
       // final parsedResponse = jsonDecode(json); // pegar um objeto so
 
       List<Map<String, dynamic>> _map = [];
