@@ -33,11 +33,6 @@ void main() {
       '/ui/method_payment': (context) => MethodPayment(),
       '/ui/sucess': (context) => Sucess()
 
-      //toast
-      // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      //   content: Text("Sending Message"),
-      // ))
-
 
       //lista horizontal
       // Container(

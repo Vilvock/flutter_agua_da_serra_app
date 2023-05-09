@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/config/validator.dart';
 import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
 import 'package:flutter_agua_da_serra_app/model/user.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
@@ -29,7 +30,7 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-  String _response = '';
+  late final validator;
   final postRequest = PostRequest();
   User? _loginResponse;
 
@@ -71,9 +72,8 @@ class _LoginState extends State<Login> {
 
     } catch (e) {
       setState(() {
-        _response = 'HTTP_ERROR: $e';
+        print('HTTP_ERROR: $e');
       });
-      print(_response);
 
     }
   }
@@ -96,6 +96,8 @@ class _LoginState extends State<Login> {
   
   @override
   Widget build(BuildContext context) {
+    validator = Validator(context: context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(),
@@ -203,6 +205,9 @@ class _LoginState extends State<Login> {
                           backgroundColor: MaterialStateProperty.all(OwnerColors.colorPrimary),
                         ),
                         onPressed: () {
+
+                          if (!validator.validateEmail(emailController.text)) return;
+                          if (!validator.validatePassword(passwordController.text)) return;
                           
                           loginRequest(emailController.text, passwordController.text);
 
