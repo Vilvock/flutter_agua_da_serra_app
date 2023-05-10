@@ -19,6 +19,10 @@ abstract class Strings {
 
   static const String email_denied = "E-mail Inválido!";
   static const String password_denied = "Senha Inválida!";
+  static const String coPassword_denied = "As senhas não são iguais!";
+  static const String cellphone_denied = "Celular Inválido!";
+  static const String cpf_denied = "CPF Inválido!";
+  static const String cnpj_denied = "CNPJ Inválido!";
 
 
 

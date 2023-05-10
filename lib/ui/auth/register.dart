@@ -3,6 +3,8 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/config/application_messages.dart';
+import 'package:flutter_agua_da_serra_app/config/masks.dart';
 import 'package:flutter_agua_da_serra_app/config/validator.dart';
 import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
 import 'package:flutter_agua_da_serra_app/model/user.dart';
@@ -29,7 +31,7 @@ class _RegisterState extends State<Register> {
     super.initState();
   }
 
-  late final validator;
+  late Validator validator;
   final postRequest = PostRequest();
   User? _registerResponse;
 
@@ -44,7 +46,7 @@ class _RegisterState extends State<Register> {
       String longitude) async {
     try {
       final body = {
-        {
+
           "razao_social": socialReason,
           "nome_fantasia": fantasyName,
           "cnpj": cnpj,
@@ -54,7 +56,7 @@ class _RegisterState extends State<Register> {
           "latitude": latitude,
           "longitude": longitude,
           "token": ApplicationConstant.TOKEN
-        }
+
       };
 
       print('HTTP_BODY: $body');
@@ -79,7 +81,11 @@ class _RegisterState extends State<Register> {
               MaterialPageRoute(builder: (context) => Home()),
               ModalRoute.withName("/ui/home"));
         });
-      } else {}
+      } else {
+
+        ApplicationMessages(context: context).showMessage(response.msg);
+
+      }
     } catch (e) {
       setState(() {
         print('HTTP_ERROR: $e');
@@ -95,11 +101,21 @@ class _RegisterState extends State<Register> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController coPasswordController = TextEditingController();
+  final TextEditingController socialReasonController = TextEditingController();
+  final TextEditingController cnpjController = TextEditingController();
+  final TextEditingController cellphoneController = TextEditingController();
+  final TextEditingController fantasyNameController = TextEditingController();
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    coPasswordController.dispose();
+    socialReasonController.dispose();
+    cnpjController.dispose();
+    cellphoneController.dispose();
+    fantasyNameController.dispose();
     super.dispose();
   }
 
@@ -133,6 +149,7 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: 32),
                     TextField(
+                      controller: socialReasonController,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -162,6 +179,7 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: Dimens.marginApplication),
                     TextField(
+                      controller: fantasyNameController,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -191,6 +209,8 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: Dimens.marginApplication),
                     TextField(
+                      controller: cnpjController,
+                      inputFormatters: [Masks().cnpjMask()],
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -220,6 +240,8 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: Dimens.marginApplication),
                     TextField(
+                      controller: cellphoneController,
+                      inputFormatters: [Masks().cellphoneMask()],
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -249,6 +271,7 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: Dimens.marginApplication),
                     TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -278,6 +301,7 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: Dimens.marginApplication),
                     TextField(
+                      controller: passwordController,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -307,6 +331,7 @@ class _RegisterState extends State<Register> {
                     ),
                     SizedBox(height: Dimens.marginApplication),
                     TextField(
+                      controller: coPasswordController,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
@@ -361,12 +386,23 @@ class _RegisterState extends State<Register> {
                                 OwnerColors.colorPrimary),
                           ),
                           onPressed: () {
-
+                            if (!validator.validateGenericTextField(socialReasonController.text, "Razão social")) return;
+                            if (!validator.validateGenericTextField(fantasyNameController.text, "Nome fantasia")) return;
+                            if (!validator.validateCNPJ(cnpjController.text)) return;
+                            if (!validator.validateCellphone(cellphoneController.text)) return;
                             if (!validator.validateEmail(emailController.text)) return;
                             if (!validator.validatePassword(passwordController.text)) return;
+                            if (!validator.validateCoPassword(passwordController.text, coPasswordController.text)) return;
 
-                            // registerRequest(emailController.text, passwordController.text, fantasyName, socialReason, cnpj, cellphone, latitude, longitude);
-
+                            registerRequest(
+                                emailController.text,
+                                passwordController.text,
+                                fantasyNameController.text,
+                                socialReasonController.text,
+                                cnpjController.text,
+                                cellphoneController.text,
+                                "432432432",
+                                "432423423");
                           },
                           child: Text(
                             "Criar conta",

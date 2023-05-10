@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/config/application_messages.dart';
 import 'package:flutter_agua_da_serra_app/config/validator.dart';
 import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
 import 'package:flutter_agua_da_serra_app/model/user.dart';
@@ -69,6 +70,7 @@ class _LoginState extends State<Login> {
         });
       } else {
 
+        ApplicationMessages(context: context).showMessage(response.msg);
       }
 
     } catch (e) {
