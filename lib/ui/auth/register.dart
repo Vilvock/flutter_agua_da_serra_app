@@ -171,7 +171,7 @@ class _RegisterState extends State<Register> {
                         contentPadding:
                             EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.text,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: Dimens.textSize5,
@@ -201,7 +201,7 @@ class _RegisterState extends State<Register> {
                         contentPadding:
                             EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.text,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: Dimens.textSize5,
@@ -232,7 +232,7 @@ class _RegisterState extends State<Register> {
                         contentPadding:
                             EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.number,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: Dimens.textSize5,
@@ -263,7 +263,7 @@ class _RegisterState extends State<Register> {
                         contentPadding:
                             EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.number,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: Dimens.textSize5,
@@ -323,7 +323,10 @@ class _RegisterState extends State<Register> {
                         contentPadding:
                             EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: Dimens.textSize5,
@@ -353,7 +356,10 @@ class _RegisterState extends State<Register> {
                         contentPadding:
                             EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
-                      keyboardType: TextInputType.emailAddress,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: Dimens.textSize5,

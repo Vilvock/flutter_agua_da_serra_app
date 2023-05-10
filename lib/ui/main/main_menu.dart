@@ -157,7 +157,8 @@ class _MainMenu extends State<MainMenu> {
                     ],
                   ),
                 ),
-                onTap: () {}),
+                onTap: () {Navigator.pushNamed(context, "/ui/categories");}
+            ),
             Divider(
               color: Colors.black12,
               height: 2,

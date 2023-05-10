@@ -177,7 +177,10 @@ class _LoginState extends State<Login> {
                       contentPadding:
                       EdgeInsets.all(Dimens.textFieldPaddingApplication),
                     ),
-                    keyboardType: TextInputType.emailAddress,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
                     style: TextStyle(
                       color: Colors.grey,
                       fontSize: Dimens.textSize5,
