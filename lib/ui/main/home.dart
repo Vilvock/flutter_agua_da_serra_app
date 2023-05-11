@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
+import 'package:flutter_agua_da_serra_app/model/product.dart';
 import 'package:flutter_agua_da_serra_app/model/user.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
@@ -216,7 +217,7 @@ class _ContainerHomeState extends State<ContainerHome> {
                               itemCount: snapshot.data!.length,
                               itemBuilder: (context, index) {
 
-                                final response = User.fromJson(snapshot.data![index]);
+                                final response = Product.fromJson(snapshot.data![index]);
 
                                 return InkWell(
                                     onTap: () => {
@@ -249,10 +250,11 @@ class _ContainerHomeState extends State<ContainerHome> {
                                                     borderRadius: BorderRadius
                                                         .circular(Dimens
                                                             .minRadiusApplication),
-                                                    child: Image.asset(
-                                                      'images/person.jpg',
+                                                    child: Image.network(
+                                                      ApplicationConstant.URL_PRODUCT_PHOTO + response.url_foto.toString(),
                                                       height: 90,
                                                       width: 90,
+                                                      errorBuilder: (context, exception, stackTrack) => Icon(Icons.error, size: 90),
                                                     ))),
                                             Expanded(
                                               child: Column(
@@ -277,7 +279,7 @@ class _ContainerHomeState extends State<ContainerHome> {
                                                       height: Dimens
                                                           .minMarginApplication),
                                                   Text(
-                                                    Strings.longLoremIpsum,
+                                                    response.descricao,
                                                     maxLines: 2,
                                                     overflow:
                                                         TextOverflow.ellipsis,
