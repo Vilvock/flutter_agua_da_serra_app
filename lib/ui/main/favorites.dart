@@ -29,7 +29,6 @@ class _Favorites extends State<Favorites> {
   final postRequest = PostRequest();
 
   Future<List<Map<String, dynamic>>> listFavorites() async {
-
     try {
       final body = {
         "id_user": await Preferences.getUserData()!.id,
@@ -39,7 +38,7 @@ class _Favorites extends State<Favorites> {
       print('HTTP_BODY: $body');
 
       final json =
-      await postRequest.sendPostRequest(Links.LIST_FAVORITES, body);
+          await postRequest.sendPostRequest(Links.LIST_FAVORITES, body);
 
       List<Map<String, dynamic>> _map = [];
       _map = List<Map<String, dynamic>>.from(jsonDecode(json));
@@ -62,114 +61,124 @@ class _Favorites extends State<Favorites> {
         valueColor: AlwaysStoppedAnimation<Color>(OwnerColors.colorPrimary),
         child: RefreshIndicator(
           onRefresh: _pullRefresh,
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                  BorderRadius.circular(Dimens.minRadiusApplication),
-                ),
-                margin: EdgeInsets.all(Dimens.minMarginApplication),
-                child: Container(
-                  padding: EdgeInsets.all(Dimens.paddingApplication),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                          margin: EdgeInsets.only(
-                              right: Dimens.minMarginApplication),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(
-                                  Dimens.minRadiusApplication),
-                              child: Image.asset(
-                                'images/person.jpg',
-                                height: 90,
-                                width: 90,
-                              ))),
-                      Expanded(
-                        child: Column(
+          child: FutureBuilder<List<Map<String, dynamic>>>(
+            future: listFavorites(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(Dimens.minRadiusApplication),
+                      ),
+                      margin: EdgeInsets.all(Dimens.minMarginApplication),
+                      child: Container(
+                        padding: EdgeInsets.all(Dimens.paddingApplication),
+                        child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              Strings.shortLoremIpsum,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: Dimens.textSize6,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(height: Dimens.minMarginApplication),
-                            Text(
-                              Strings.longLoremIpsum,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: Dimens.textSize5,
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(height: Dimens.marginApplication),
-                            Text(
-                              "R\$ 50,00",
-                              style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontSize: Dimens.textSize6,
-                                color: Colors.black,
-                              ),
-                            ),
-                            SizedBox(height: Dimens.minMarginApplication),
-                            Divider(
-                              color: Colors.black12,
-                              height: 2,
-                              thickness: 1.5,
-                            ),
-                            SizedBox(height: Dimens.minMarginApplication),
-                            IntrinsicHeight(
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                        size: 20, Icons.shopping_cart_outlined),
-                                    Text(
-                                      "Adicionar ao carrinho",
-                                      style: TextStyle(
-                                        fontFamily: 'Inter',
-                                        fontSize: Dimens.textSize4,
-                                        color: Colors.black,
+                            Container(
+                                margin: EdgeInsets.only(
+                                    right: Dimens.minMarginApplication),
+                                child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(
+                                        Dimens.minRadiusApplication),
+                                    child: Image.asset(
+                                      'images/person.jpg',
+                                      height: 90,
+                                      width: 90,
+                                    ))),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    Strings.shortLoremIpsum,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontFamily: 'Inter',
+                                      fontSize: Dimens.textSize6,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(height: Dimens.minMarginApplication),
+                                  Text(
+                                    Strings.longLoremIpsum,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontFamily: 'Inter',
+                                      fontSize: Dimens.textSize5,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(height: Dimens.marginApplication),
+                                  Text(
+                                    "R\$ 50,00",
+                                    style: TextStyle(
+                                      fontFamily: 'Inter',
+                                      fontSize: Dimens.textSize6,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  SizedBox(height: Dimens.minMarginApplication),
+                                  Divider(
+                                    color: Colors.black12,
+                                    height: 2,
+                                    thickness: 1.5,
+                                  ),
+                                  SizedBox(height: Dimens.minMarginApplication),
+                                  IntrinsicHeight(
+                                      child: Row(
+                                    children: [
+                                      Icon(
+                                          size: 20,
+                                          Icons.shopping_cart_outlined),
+                                      Text(
+                                        "Adicionar ao carrinho",
+                                        style: TextStyle(
+                                          fontFamily: 'Inter',
+                                          fontSize: Dimens.textSize4,
+                                          color: Colors.black,
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(
-                                        width: Dimens.minMarginApplication),
-                                    VerticalDivider(
-                                      color: Colors.black12,
-                                      width: 2,
-                                      thickness: 1.5,
-                                    ),
-                                    SizedBox(
-                                        width: Dimens.minMarginApplication),
-
-                                    Icon(size: 20, Icons.delete_outline),
-                                    Text(
-                                      "Remover",
-                                      style: TextStyle(
-                                        fontFamily: 'Inter',
-                                        fontSize: Dimens.textSize4,
-                                        color: Colors.black,
+                                      SizedBox(
+                                          width: Dimens.minMarginApplication),
+                                      VerticalDivider(
+                                        color: Colors.black12,
+                                        width: 2,
+                                        thickness: 1.5,
                                       ),
-                                    ),
-                                  ],
-                                ))
+                                      SizedBox(
+                                          width: Dimens.minMarginApplication),
+                                      Icon(size: 20, Icons.delete_outline),
+                                      Text(
+                                        "Remover",
+                                        style: TextStyle(
+                                          fontFamily: 'Inter',
+                                          fontSize: Dimens.textSize4,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                    ],
+                                  ))
+                                ],
+                              ),
+                            )
                           ],
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              );
+                      ),
+                    );
+                  },
+                );
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
+              return const CircularProgressIndicator();
             },
           ),
         ),
@@ -180,9 +189,7 @@ class _Favorites extends State<Favorites> {
   Future<void> _pullRefresh() async {
     setState(() {
       _isLoading = true;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Sending Message"),
-      ));
+      listFavorites();
       _isLoading = false;
     });
   }

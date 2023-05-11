@@ -29,7 +29,7 @@ abstract class Links {
 
   //favoritos
   static const String ADD_FAVORITE = "favoritos/add_favoritos/";
-  static const String LIST_FAVORITES = "favoritos/list_favoritos";
+  static const String LIST_FAVORITES = "favoritos/list_favoritos/";
   static const String DELETE_FAVORITE = "favoritos/delete_favoritos/";
 
   //carrinho

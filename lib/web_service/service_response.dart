@@ -8,6 +8,8 @@ class PostRequest {
 
   Future<String> sendPostRequest(String request, dynamic body) async {
     try {
+      print(ApplicationConstant.URL_BASE + request);
+
       final response = await http.post(
         Uri.parse(ApplicationConstant.URL_BASE + request),
 

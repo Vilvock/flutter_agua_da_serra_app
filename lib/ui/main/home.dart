@@ -368,9 +368,6 @@ class _ContainerHomeState extends State<ContainerHome> {
   Future<void> _pullRefresh() async {
     setState(() {
       _isLoading = true;
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text("Sending Message"),
-      ));
       listHighlightsRequest();
       _isLoading = false;
     });
