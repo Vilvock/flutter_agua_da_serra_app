@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_agua_da_serra_app/config/preferences.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/strings.dart';
+import 'package:flutter_agua_da_serra_app/ui/auth/login.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/alert_dialog_generic.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
 
@@ -265,8 +267,17 @@ class _MainMenu extends State<MainMenu> {
                               }),
                           btnConfirm: TextButton(
                               child: Text(Strings.yes),
-                              onPressed: () {
-                                Navigator.of(context).pop();
+                              onPressed: () async {
+
+                                await Preferences.init();
+                                Preferences.clearUserData();
+
+                                Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Login()),
+                                    ModalRoute.withName("/ui/login"));
+
                               }));
                     },
                   );

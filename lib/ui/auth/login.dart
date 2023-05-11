@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/config/application_messages.dart';
+import 'package:flutter_agua_da_serra_app/config/preferences.dart';
 import 'package:flutter_agua_da_serra_app/config/validator.dart';
 import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
 import 'package:flutter_agua_da_serra_app/model/user.dart';
@@ -32,7 +33,7 @@ class _LoginState extends State<Login> {
     super.initState();
   }
 
-  late final validator;
+  late Validator validator;
   final postRequest = PostRequest();
   User? _loginResponse;
 
@@ -58,9 +59,11 @@ class _LoginState extends State<Login> {
       final response = User.fromJson(_map[0]);
 
       if(response.status == "01") {
-        setState(() {
+        setState(() async {
           _loginResponse = response;
-          saveUserToPreferences(_loginResponse!);
+
+          await Preferences.setUserData(_loginResponse);
+          await Preferences.setLogin(true);
 
           Navigator.pushAndRemoveUntil(
               context,
@@ -81,11 +84,6 @@ class _LoginState extends State<Login> {
     }
   }
 
-  Future<void> saveUserToPreferences(User user) async {
-    final prefs = await SharedPreferences.getInstance();
-    final userData = user.toJson();
-    await prefs.setString('user', jsonEncode(userData));
-  }
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -210,11 +208,11 @@ class _LoginState extends State<Login> {
                         style: ButtonStyle (
                           backgroundColor: MaterialStateProperty.all(OwnerColors.colorPrimary),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
 
                           if (!validator.validateEmail(emailController.text)) return;
                           // if (!validator.validatePassword(passwordController.text)) return;
-                          
+                          await Preferences.init();
                           loginRequest(emailController.text, passwordController.text);
 
                         },

@@ -1,8 +1,10 @@
 class GlobalWSModel {
+  final int id;
   final String status;
   final String msg;
 
   GlobalWSModel({
+    required this.id,
     required this.status,
     required this.msg,
   });

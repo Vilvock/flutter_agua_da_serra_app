@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/config/preferences.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 
@@ -15,8 +16,15 @@ class _SplashState extends State<Splash> {
 
   void initState() {
     super.initState();
-    Future.delayed(Duration(seconds: 4), () {
-      Navigator.pushReplacementNamed(context, '/ui/onboarding'); //AQUI ESTA UMA NAVEGAÇAO COM ROTA
+    Future.delayed(Duration(seconds: 4), () async {
+
+      await Preferences.init();
+
+      if (await Preferences.getLogin()) {
+        Navigator.pushReplacementNamed(context, '/ui/home');
+      } else {
+        Navigator.pushReplacementNamed(context, '/ui/onboarding');
+      }
     });
   }
 

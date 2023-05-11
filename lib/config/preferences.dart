@@ -1,13 +1,21 @@
-import 'package:flutter_agua_da_serra_app/model/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/user.dart';
 
 class Preferences {
   static SharedPreferences? _preferences;
 
   static Future<void> init() async {
     _preferences = await SharedPreferences.getInstance();
+  }
+
+  static SharedPreferences getSharedPreferences() {
+    if (_preferences == null) {
+      throw Exception("SharedPreferences not initialized. Call init() first.");
+    }
+    return _preferences!;
   }
 
   static Future<void> setString(String key, String value) async {
@@ -49,31 +57,43 @@ class Preferences {
   }
 
   static Future<void> setUserData(User? user) async {
-    final json = user != null ? jsonEncode(user.toJson()) : '';
-    await setString('getData', json);
+    final json = user != null ? jsonEncode(user.toJson()) : null;
+    await setString('getData', json ?? '');
   }
 
   static User? getUserData() {
     final json = getString('getData');
     if (json != null && json.isNotEmpty) {
-      return User.fromJson(jsonDecode(json));
+      try {
+        final userJson = jsonDecode(json);
+        final user = User.fromJson(userJson);
+        print(userJson);
+        return user;
+      } catch (e) {
+        print('Error decoding user JSON: $e');
+        return null;
+      }
     }
     return null;
   }
 
+
   static Future<void> setLogin(bool enable) async {
-    await _preferences!.setBool('login', enable);
+    final preferences = await getSharedPreferences();
+    await preferences.setBool('login', enable);
   }
 
-  static bool getLogin() {
-    return _preferences!.getBool('login') ?? false;
+  static Future<bool> getLogin() async {
+    final preferences = await getSharedPreferences();
+    return preferences.getBool('login') ?? false;
   }
 
   static Future<void> clearUserData() async {
-    await _preferences!.remove('getData');
-    await _preferences!.remove('login');
-    await _preferences!.remove('token');
-    await _preferences!.remove('arrayNotifyCompare');
+    final preferences = await getSharedPreferences();
+    await preferences.remove('getData');
+    await preferences.remove('login');
+    await preferences.remove('token');
+    await preferences.remove('arrayNotifyCompare');
   }
 
   static const ENTERING_FIRST_TIME = 'EnteringFirstTime';

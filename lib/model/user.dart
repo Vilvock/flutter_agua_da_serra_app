@@ -6,7 +6,7 @@ class User extends GlobalWSModel{
 
   User({
     required this.nome,
-    required this.email, required super.status, required super.msg,
+    required this.email, required super.status, required super.msg, required super.id,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -15,6 +15,7 @@ class User extends GlobalWSModel{
       email: json['email'],
       status: json['status'],
       msg: json['msg'],
+      id: json['id'],
     );
   }
 
@@ -25,6 +26,7 @@ class User extends GlobalWSModel{
       'email': email,
       'status': status,
       'msg': msg,
+      'id': id,
     };
   }
 }
