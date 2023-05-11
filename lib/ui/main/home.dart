@@ -104,7 +104,6 @@ class BottomNavBar extends StatelessWidget {
 }
 
 class _ContainerHomeState extends State<ContainerHome> {
-
   bool _isLoading = false;
   int _pageIndex = 0;
 
@@ -115,36 +114,28 @@ class _ContainerHomeState extends State<ContainerHome> {
 
   late final validator;
   final postRequest = PostRequest();
-  late List<Map?> _highLightList;
 
-  Future<void> listHighlightsRequest() async {
+  Future<List<Map<String, dynamic>>> listHighlightsRequest() async {
     try {
       final body = {
-        "id_user":16,
-        "qtd_lista":0,
+        "id_user": 16,
+        "qtd_lista": 0,
         "token": ApplicationConstant.TOKEN
       };
 
       print('HTTP_BODY: $body');
 
-      final json = await postRequest.sendPostRequest(Links.LIST_HIGHLIGHTS, body);
+      final json =
+          await postRequest.sendPostRequest(Links.LIST_HIGHLIGHTS, body);
 
       List<Map<String, dynamic>> _map = [];
       _map = List<Map<String, dynamic>>.from(jsonDecode(json));
 
       print('HTTP_RESPONSE: $_map');
 
-      final response = _map;
-
-      setState(() {
-        _highLightList = response;// depois que ir listar items eu faço o cast para cada item com o fromJson
-      });
-
+      return _map;
     } catch (e) {
-      setState(() {
-        print('HTTP_ERROR: $e');
-      });
-
+      throw Exception('HTTP_ERROR: $e');
     }
   }
 
@@ -215,101 +206,124 @@ class _ContainerHomeState extends State<ContainerHome> {
                           ],
                         ),
                       ),
-                      ListView.builder(
-                        primary: false,
-                        shrinkWrap: true,
-                        itemCount: /*numbersList.length*/ 5,
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                              onTap: () => {
-                                    Navigator.pushNamed(
-                                        context, "/ui/product_detail", arguments: {"name" :
-                                    "Bijendra", "rollNo": 65210})
-                                  },
-                              child: Card(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                      Dimens.minRadiusApplication),
-                                ),
-                                margin:
-                                    EdgeInsets.all(Dimens.minMarginApplication),
-                                child: Container(
-                                  padding:
-                                      EdgeInsets.all(Dimens.paddingApplication),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          margin: EdgeInsets.only(
-                                              right:
-                                                  Dimens.minMarginApplication),
-                                          child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(Dimens
-                                                      .minRadiusApplication),
-                                              child: Image.asset(
-                                                'images/person.jpg',
-                                                height: 90,
-                                                width: 90,
-                                              ))),
-                                      Expanded(
-                                        child: Column(
+                      FutureBuilder<List<Map<String, dynamic>>>(
+                        future: listHighlightsRequest(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return ListView.builder(
+                              primary: false,
+                              shrinkWrap: true,
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) {
+
+                                final response = User.fromJson(snapshot.data![index]);
+
+                                return InkWell(
+                                    onTap: () => {
+                                          Navigator.pushNamed(
+                                              context, "/ui/product_detail",
+                                              arguments: {
+                                                "name": "Bijendra",
+                                                "rollNo": 65210
+                                              })
+                                        },
+                                    child: Card(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                            Dimens.minRadiusApplication),
+                                      ),
+                                      margin: EdgeInsets.all(
+                                          Dimens.minMarginApplication),
+                                      child: Container(
+                                        padding: EdgeInsets.all(
+                                            Dimens.paddingApplication),
+                                        child: Row(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              Strings.shortLoremIpsum,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: Dimens.textSize6,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.black,
+                                            Container(
+                                                margin: EdgeInsets.only(
+                                                    right: Dimens
+                                                        .minMarginApplication),
+                                                child: ClipRRect(
+                                                    borderRadius: BorderRadius
+                                                        .circular(Dimens
+                                                            .minRadiusApplication),
+                                                    child: Image.asset(
+                                                      'images/person.jpg',
+                                                      height: 90,
+                                                      width: 90,
+                                                    ))),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    response.nome,
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Inter',
+                                                      fontSize:
+                                                          Dimens.textSize6,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      height: Dimens
+                                                          .minMarginApplication),
+                                                  Text(
+                                                    Strings.longLoremIpsum,
+                                                    maxLines: 2,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Inter',
+                                                      fontSize:
+                                                          Dimens.textSize5,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                      height: Dimens
+                                                          .marginApplication),
+                                                  Text(
+                                                    "R\$ 50,00",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Inter',
+                                                      fontSize:
+                                                          Dimens.textSize6,
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            SizedBox(
-                                                height: Dimens
-                                                    .minMarginApplication),
-                                            Text(
-                                              Strings.longLoremIpsum,
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: Dimens.textSize5,
-                                                color: Colors.black,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                height:
-                                                    Dimens.marginApplication),
-                                            Text(
-                                              "R\$ 50,00",
-                                              style: TextStyle(
-                                                fontFamily: 'Inter',
-                                                fontSize: Dimens.textSize6,
-                                                color: Colors.black,
-                                              ),
+                                            FloatingActionButton(
+                                              mini: true,
+                                              child: Icon(
+                                                  Icons
+                                                      .favorite_border_outlined,
+                                                  color: Colors.black),
+                                              backgroundColor: Colors.white,
+                                              onPressed: () {
+                                                // Add your onPressed code here!
+                                              },
                                             ),
                                           ],
                                         ),
                                       ),
-                                      FloatingActionButton(
-                                        mini: true,
-                                        child: Icon(
-                                            Icons.favorite_border_outlined,
-                                            color: Colors.black),
-                                        backgroundColor: Colors.white,
-                                        onPressed: () {
-                                          // Add your onPressed code here!
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ));
+                                    ));
+                              },
+                            );
+                          } else if (snapshot.hasError) {
+                            return Text('${snapshot.error}');
+                          }
+                          return const CircularProgressIndicator();
                         },
                       ),
                       Container(
