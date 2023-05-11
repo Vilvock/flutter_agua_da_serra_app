@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
+import 'package:flutter_agua_da_serra_app/res/strings.dart';
+import 'package:flutter_agua_da_serra_app/ui/components/alert_dialog_address_form.dart';
+import 'package:flutter_agua_da_serra_app/ui/components/alert_dialog_generic.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   String title;
@@ -84,7 +87,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: Colors.black,
         ),
         onPressed: () {
-          // do something
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddressFormAlertDialog();
+            },
+          );
         },
       ));
     }

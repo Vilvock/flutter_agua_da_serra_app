@@ -213,7 +213,7 @@ class _LoginState extends State<Login> {
                         onPressed: () {
 
                           if (!validator.validateEmail(emailController.text)) return;
-                          if (!validator.validatePassword(passwordController.text)) return;
+                          // if (!validator.validatePassword(passwordController.text)) return;
                           
                           loginRequest(emailController.text, passwordController.text);
 
