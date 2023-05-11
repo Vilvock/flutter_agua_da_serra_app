@@ -368,7 +368,7 @@ class _ContainerHomeState extends State<ContainerHome> {
   Future<void> _pullRefresh() async {
     setState(() {
       _isLoading = true;
-      listHighlightsRequest();
+      // listHighlightsRequest();
       _isLoading = false;
     });
   }

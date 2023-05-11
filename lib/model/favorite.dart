@@ -1,20 +1,20 @@
 import 'package:flutter_agua_da_serra_app/model/global_ws_model.dart';
 
-class Product extends GlobalWSModel{
+class Favorite extends GlobalWSModel{
   final String nome;
   final String email;
   final String url_foto;
   final String descricao;
 
-  Product({
+  Favorite({
     required this.nome,
     required this.email,
     required this.url_foto,
     required this.descricao, required super.status, required super.msg, required super.id, required super.rows,
   });
 
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
+  factory Favorite.fromJson(Map<String, dynamic> json) {
+    return Favorite(
       nome: json['nome'],
       email: json['email'],
       url_foto: json['url_foto'],
