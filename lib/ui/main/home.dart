@@ -176,7 +176,8 @@ class _ContainerHomeState extends State<ContainerHome> {
                           return InkWell(
                               onTap: () => {
                                     Navigator.pushNamed(
-                                        context, "/ui/product_detail")
+                                        context, "/ui/product_detail", arguments: {"name" :
+                                    "Bijendra", "rollNo": 65210})
                                   },
                               child: Card(
                                 shape: RoundedRectangleBorder(
@@ -238,7 +239,7 @@ class _ContainerHomeState extends State<ContainerHome> {
                                                 height:
                                                     Dimens.marginApplication),
                                             Text(
-                                              "R 50,00",
+                                              "R\$ 50,00",
                                               style: TextStyle(
                                                 fontFamily: 'Inter',
                                                 fontSize: Dimens.textSize6,

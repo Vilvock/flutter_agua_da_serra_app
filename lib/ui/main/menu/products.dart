@@ -5,21 +5,21 @@ import 'package:flutter_agua_da_serra_app/res/strings.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/progress_hud.dart';
 
-class SubCategories extends StatefulWidget {
-  const SubCategories ({Key? key}) : super(key: key);
+class Products extends StatefulWidget {
+  const Products ({Key? key}) : super(key: key);
 
   @override
-  State<SubCategories> createState() => _SubCategories();
+  State<Products> createState() => _Products();
 }
 
-class _SubCategories extends State<SubCategories> {
+class _Products extends State<Products> {
   bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: CustomAppBar(title: "Subcategorias", isVisibleBackButton: true),
+        appBar: CustomAppBar(title: "Produtos", isVisibleBackButton: true),
         body: ProgressHUD(
           inAsyncCall: _isLoading,
           valueColor: AlwaysStoppedAnimation<Color>(OwnerColors.colorPrimary),
@@ -30,7 +30,7 @@ class _SubCategories extends State<SubCategories> {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () =>
-                    {Navigator.pushNamed(context, "/ui/products")},
+                    {Navigator.pushNamed(context, "/ui/product_detail")},
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius:

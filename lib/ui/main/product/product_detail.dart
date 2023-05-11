@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/config/application_messages.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 import 'package:flutter_agua_da_serra_app/res/strings.dart';
@@ -23,6 +24,11 @@ class _ProductDetail extends State<ProductDetail> {
 
   @override
   Widget build(BuildContext context) {
+    Map data = {};
+    data = ModalRoute.of(context)!.settings.arguments as Map;
+    
+    print(data['name']);
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(

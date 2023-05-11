@@ -78,7 +78,7 @@ class _Favorites extends State<Favorites> {
                             ),
                             SizedBox(height: Dimens.marginApplication),
                             Text(
-                              "50,00",
+                              "R\$ 50,00",
                               style: TextStyle(
                                 fontFamily: 'Inter',
                                 fontSize: Dimens.textSize6,

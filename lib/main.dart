@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_agua_da_serra_app/ui/auth/login.dart';
+import 'package:flutter_agua_da_serra_app/ui/main/menu/products.dart';
+import 'package:flutter_agua_da_serra_app/ui/main/menu/subcategories.dart';
 import 'package:flutter_agua_da_serra_app/ui/utilities/pdf_viewer.dart';
 import 'package:flutter_agua_da_serra_app/ui/auth/register.dart';
 import 'package:flutter_agua_da_serra_app/ui/intro/onboarding.dart';
@@ -28,6 +30,8 @@ void main() {
       '/ui/profile': (context) => Profile(),
       '/ui/pdf_viewer': (context) => PdfViewer(),
       '/ui/categories': (context) => Categories(),
+      '/ui/subcategories': (context) => SubCategories(),
+      '/ui/products': (context) => Products(),
       '/ui/product_detail': (context) => ProductDetail(),
       '/ui/user_addresses': (context) => UserAddresses(),
       '/ui/method_payment': (context) => MethodPayment(),
