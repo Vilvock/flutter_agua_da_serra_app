@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
+import 'package:flutter_agua_da_serra_app/model/user.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 import 'package:flutter_agua_da_serra_app/res/strings.dart';
@@ -11,6 +15,8 @@ import 'package:flutter_agua_da_serra_app/ui/main/cart.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/favorites.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/main_menu.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/orders.dart';
+import 'package:flutter_agua_da_serra_app/web_service/links.dart';
+import 'package:flutter_agua_da_serra_app/web_service/service_response.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class Home extends StatefulWidget {
@@ -98,8 +104,49 @@ class BottomNavBar extends StatelessWidget {
 }
 
 class _ContainerHomeState extends State<ContainerHome> {
+
   bool _isLoading = false;
   int _pageIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  late final validator;
+  final postRequest = PostRequest();
+  late List<Map?> _highLightList;
+
+  Future<void> listHighlightsRequest() async {
+    try {
+      final body = {
+        "id_user":16,
+        "qtd_lista":0,
+        "token": ApplicationConstant.TOKEN
+      };
+
+      print('HTTP_BODY: $body');
+
+      final json = await postRequest.sendPostRequest(Links.LIST_HIGHLIGHTS, body);
+
+      List<Map<String, dynamic>> _map = [];
+      _map = List<Map<String, dynamic>>.from(jsonDecode(json));
+
+      print('HTTP_RESPONSE: $_map');
+
+      final response = _map;
+
+      setState(() {
+        _highLightList = response;// depois que ir listar items eu faço o cast para cada item com o fromJson
+      });
+
+    } catch (e) {
+      setState(() {
+        print('HTTP_ERROR: $e');
+      });
+
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -308,6 +355,7 @@ class _ContainerHomeState extends State<ContainerHome> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text("Sending Message"),
       ));
+      listHighlightsRequest();
       _isLoading = false;
     });
   }
