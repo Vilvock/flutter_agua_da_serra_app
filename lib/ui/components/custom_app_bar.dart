@@ -10,14 +10,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   bool isVisibleBackButton;
   bool isVisibleFavoriteButton;
   bool isVisibleAddressButton;
+  bool isVisibleSearchButton;
 
   CustomAppBar({this.title: "", this.isVisibleBackButton = false,
-    this.isVisibleFavoriteButton = false, this.isVisibleAddressButton = false});
+    this.isVisibleFavoriteButton = false, this.isVisibleAddressButton = false, this.isVisibleSearchButton = false});
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: _returnFavoriteIcon(this.isVisibleFavoriteButton, this.isVisibleAddressButton, context),
+      actions: _returnFavoriteIcon(this.isVisibleFavoriteButton, this.isVisibleAddressButton, this.isVisibleSearchButton, context),
       automaticallyImplyLeading: this.isVisibleBackButton,
       leading: _returnBackIcon(this.isVisibleBackButton, context),
       backgroundColor: Colors.white,
@@ -64,7 +65,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return null;
   }
 
-  List<Widget> _returnFavoriteIcon(bool isVisibleFavoriteButton, bool isVisibleAddressButton, BuildContext context) {
+  List<Widget> _returnFavoriteIcon(bool isVisibleFavoriteButton, bool isVisibleAddressButton, bool isVisibleSearchButton, BuildContext context) {
 
     List<Widget> _widgetList = <Widget>[];
 
@@ -93,6 +94,18 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               return AddressFormAlertDialog();
             },
           );
+        },
+      ));
+    }
+
+    if (isVisibleSearchButton) {
+      _widgetList.add(IconButton(
+        icon: Icon(
+          Icons.search,
+          color: Colors.black,
+        ),
+        onPressed: () {
+
         },
       ));
     }

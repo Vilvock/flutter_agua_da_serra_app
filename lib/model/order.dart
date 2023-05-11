@@ -1,0 +1,42 @@
+import 'package:flutter_agua_da_serra_app/model/global_ws_model.dart';
+
+class Order extends GlobalWSModel{
+  final String nome;
+  final String email;
+  final String url_foto;
+  final String descricao;
+
+  Order({
+    required this.nome,
+    required this.email,
+    required this.url_foto,
+    required this.descricao, required super.status, required super.msg, required super.id, required super.rows,
+  });
+
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+      nome: json['nome'],
+      email: json['email'],
+      url_foto: json['url_foto'],
+      descricao: json['descricao'],
+      status: json['status'],
+      msg: json['msg'],
+      id: json['id'],
+      rows: json['rows'],
+    );
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'nome': nome,
+      'email': email,
+      'url_foto': url_foto,
+      'descricao': descricao,
+      'status': status,
+      'msg': msg,
+      'id': id,
+      'rows': rows,
+    };
+  }
+}

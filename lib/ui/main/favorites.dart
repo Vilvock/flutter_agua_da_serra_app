@@ -66,10 +66,9 @@ class _Favorites extends State<Favorites> {
             future: listFavorites(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-
                 final response = Favorite.fromJson(snapshot.data![0]);
 
-                if (response.rows != "0") {
+                if (response.rows != 0) {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {

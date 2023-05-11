@@ -144,7 +144,7 @@ class _ContainerHomeState extends State<ContainerHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: CustomAppBar(title: "Início", isVisibleBackButton: false),
+        appBar: CustomAppBar(title: "Início", isVisibleBackButton: false, isVisibleSearchButton: true,),
         body: ProgressHUD(
           inAsyncCall: _isLoading,
           valueColor: AlwaysStoppedAnimation<Color>(OwnerColors.colorPrimary),
