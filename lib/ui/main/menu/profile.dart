@@ -3,8 +3,10 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/config/application_messages.dart';
 import 'package:flutter_agua_da_serra_app/config/masks.dart';
 import 'package:flutter_agua_da_serra_app/config/preferences.dart';
+import 'package:flutter_agua_da_serra_app/config/validator.dart';
 import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
 import 'package:flutter_agua_da_serra_app/model/user.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
@@ -24,10 +26,11 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   void initState() {
+    loadProfileRequest();
     super.initState();
   }
 
-  late final validator;
+  late Validator validator;
   final postRequest = PostRequest();
   User? _profileResponse;
 
@@ -35,31 +38,35 @@ class _ProfileState extends State<Profile> {
     try {
       final body = {
         "id": await Preferences.getUserData()!.id,
-        "token": ApplicationConstant.TOKEN};
+        "token": ApplicationConstant.TOKEN
+      };
 
       print('HTTP_BODY: $body');
 
       final json = await postRequest.sendPostRequest(Links.LOAD_PROFILE, body);
-      // final parsedResponse = jsonDecode(json); // pegar um objeto so
+      final parsedResponse = jsonDecode(json);
 
-      List<Map<String, dynamic>> _map = [];
-      _map = List<Map<String, dynamic>>.from(jsonDecode(json));
+      print('HTTP_RESPONSE: $parsedResponse');
 
-      print('HTTP_RESPONSE: $_map');
+      final response = User.fromJson(parsedResponse);
+      //
+      // if (response.status == "01") {
+      setState(() {
+        _profileResponse = response;
 
-      final response = User.fromJson(_map[0]);
-
-      if (response.status == "01") {
-        setState(() {
-          _profileResponse = response;
-        });
-      } else {}
+        fantasyNameController.text = _profileResponse!.nome.toString();
+        emailController.text = _profileResponse!.email.toString();
+        cnpjController.text = _profileResponse!.documento.toString();
+        cellphoneController.text = _profileResponse!.celular.toString();
+      });
+      // } else {}
     } catch (e) {
       throw Exception('HTTP_ERROR: $e');
     }
   }
 
-  Future<void> updateUserDataRequest(String name, String documentCnpj, String cellphone, String email) async {
+  Future<void> updateUserDataRequest(
+      String name, String documentCnpj, String cellphone, String email) async {
     try {
       final body = {
         "id": await Preferences.getUserData()!.id,
@@ -84,10 +91,12 @@ class _ProfileState extends State<Profile> {
       final response = User.fromJson(_map[0]);
 
       if (response.status == "01") {
-        setState(() {
-          _profileResponse = response;
-        });
-      } else {}
+
+        loadProfileRequest();
+      } else {
+
+        ApplicationMessages(context: context).showMessage(response.msg);
+      }
     } catch (e) {
       throw Exception('HTTP_ERROR: $e');
     }
@@ -146,6 +155,8 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
+    validator = Validator(context: context);
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(title: "Meu Perfil", isVisibleBackButton: true),
@@ -191,19 +202,19 @@ class _ProfileState extends State<Profile> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0),
+                              BorderSide(color: Colors.grey, width: 1.0),
                         ),
                         hintText: 'Nome Fantasia',
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(
                           borderRadius:
-                          BorderRadius.circular(Dimens.radiusApplication),
+                              BorderRadius.circular(Dimens.radiusApplication),
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding:
-                        EdgeInsets.all(Dimens.textFieldPaddingApplication),
+                            EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
                       keyboardType: TextInputType.text,
                       style: TextStyle(
@@ -221,19 +232,19 @@ class _ProfileState extends State<Profile> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0),
+                              BorderSide(color: Colors.grey, width: 1.0),
                         ),
                         hintText: 'E-mail',
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(
                           borderRadius:
-                          BorderRadius.circular(Dimens.radiusApplication),
+                              BorderRadius.circular(Dimens.radiusApplication),
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding:
-                        EdgeInsets.all(Dimens.textFieldPaddingApplication),
+                            EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(
@@ -252,19 +263,19 @@ class _ProfileState extends State<Profile> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0),
+                              BorderSide(color: Colors.grey, width: 1.0),
                         ),
                         hintText: 'CNPJ',
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(
                           borderRadius:
-                          BorderRadius.circular(Dimens.radiusApplication),
+                              BorderRadius.circular(Dimens.radiusApplication),
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding:
-                        EdgeInsets.all(Dimens.textFieldPaddingApplication),
+                            EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
                       keyboardType: TextInputType.number,
                       style: TextStyle(
@@ -283,19 +294,19 @@ class _ProfileState extends State<Profile> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0),
+                              BorderSide(color: Colors.grey, width: 1.0),
                         ),
                         hintText: 'Celular',
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(
                           borderRadius:
-                          BorderRadius.circular(Dimens.radiusApplication),
+                              BorderRadius.circular(Dimens.radiusApplication),
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding:
-                        EdgeInsets.all(Dimens.textFieldPaddingApplication),
+                            EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
                       keyboardType: TextInputType.number,
                       style: TextStyle(
@@ -315,7 +326,18 @@ class _ProfileState extends State<Profile> {
                             backgroundColor: MaterialStateProperty.all(
                                 OwnerColors.colorPrimary),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            if (!validator.validateGenericTextField(fantasyNameController.text, "Nome fantasia")) return;
+                            if (!validator.validateEmail(emailController.text)) return;
+                            if (!validator.validateCNPJ(cnpjController.text)) return;
+                            if (!validator.validateCellphone(cellphoneController.text)) return;
+
+                            updateUserDataRequest(
+                                fantasyNameController.text,
+                                cnpjController.text,
+                                cellphoneController.text,
+                                emailController.text);
+                          },
                           child: Text(
                             "Atualizar dados",
                             style: TextStyle(
@@ -349,19 +371,19 @@ class _ProfileState extends State<Profile> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0),
+                              BorderSide(color: Colors.grey, width: 1.0),
                         ),
                         hintText: 'Nova Senha',
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(
                           borderRadius:
-                          BorderRadius.circular(Dimens.radiusApplication),
+                              BorderRadius.circular(Dimens.radiusApplication),
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding:
-                        EdgeInsets.all(Dimens.textFieldPaddingApplication),
+                            EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
@@ -382,19 +404,19 @@ class _ProfileState extends State<Profile> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                          BorderSide(color: Colors.grey, width: 1.0),
+                              BorderSide(color: Colors.grey, width: 1.0),
                         ),
                         hintText: 'Confirmar Senha',
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(
                           borderRadius:
-                          BorderRadius.circular(Dimens.radiusApplication),
+                              BorderRadius.circular(Dimens.radiusApplication),
                           borderSide: BorderSide.none,
                         ),
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding:
-                        EdgeInsets.all(Dimens.textFieldPaddingApplication),
+                            EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
