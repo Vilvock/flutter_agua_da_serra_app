@@ -87,9 +87,7 @@ class _RegisterState extends State<Register> {
 
       }
     } catch (e) {
-      setState(() {
-        print('HTTP_ERROR: $e');
-      });
+      throw Exception('HTTP_ERROR: $e');
     }
   }
 

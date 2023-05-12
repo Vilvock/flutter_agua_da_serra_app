@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_agua_da_serra_app/config/preferences.dart';
 import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
 import 'package:flutter_agua_da_serra_app/model/product.dart';
 import 'package:flutter_agua_da_serra_app/model/user.dart';
@@ -119,7 +120,7 @@ class _ContainerHomeState extends State<ContainerHome> {
   Future<List<Map<String, dynamic>>> listHighlightsRequest() async {
     try {
       final body = {
-        "id_user": 16,
+        "id_user": await Preferences.getUserData()!.id,
         "qtd_lista": 0,
         "token": ApplicationConstant.TOKEN
       };
