@@ -95,8 +95,8 @@ class _ProfileState extends State<Profile> {
         loadProfileRequest();
       } else {
 
-        ApplicationMessages(context: context).showMessage(response.msg);
       }
+      ApplicationMessages(context: context).showMessage(response.msg);
     } catch (e) {
       throw Exception('HTTP_ERROR: $e');
     }
@@ -124,10 +124,20 @@ class _ProfileState extends State<Profile> {
       final response = User.fromJson(_map[0]);
 
       if (response.status == "01") {
+
         setState(() {
           _profileResponse = response;
+
+          passwordController.text = "";
+          coPasswordController.text = "";
         });
-      } else {}
+
+
+        loadProfileRequest();
+      } else {
+
+      }
+      ApplicationMessages(context: context).showMessage(response.msg);
     } catch (e) {
       throw Exception('HTTP_ERROR: $e');
     }
@@ -437,7 +447,14 @@ class _ProfileState extends State<Profile> {
                             backgroundColor: MaterialStateProperty.all(
                                 OwnerColors.colorPrimary),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+
+                            if (!validator.validatePassword(passwordController.text)) return;
+                            if (!validator.validateCoPassword(passwordController.text, coPasswordController.text)) return;
+
+                            updatePasswordRequest(passwordController.text);
+
+                          },
                           child: Text(
                             "Atualizar senha",
                             style: TextStyle(
