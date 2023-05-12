@@ -114,9 +114,8 @@ class _Orders extends State<Orders> {
                                       SizedBox(
                                           height: Dimens.minMarginApplication),
                                       Text(
-                                        Strings.longLoremIpsum,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
+                                        "Status do pagamento: " + response.status_pagamento+
+                                        "\nValor total: " + response.valor_total,
                                         style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontSize: Dimens.textSize5,
@@ -143,7 +142,7 @@ class _Orders extends State<Orders> {
                                       SizedBox(
                                           height: Dimens.minMarginApplication),
                                       Text(
-                                        "Em andamento",
+                                        response.nome_status_pedido,
                                         style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontSize: Dimens.textSize5,
