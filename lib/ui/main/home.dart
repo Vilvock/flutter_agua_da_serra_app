@@ -295,7 +295,7 @@ class _ContainerHomeState extends State<ContainerHome> {
                                                       height: Dimens
                                                           .marginApplication),
                                                   Text(
-                                                    "R\$ 50,00",
+                                                    response.valor,
                                                     style: TextStyle(
                                                       fontFamily: 'Inter',
                                                       fontSize:

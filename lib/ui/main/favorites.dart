@@ -32,7 +32,7 @@ class _Favorites extends State<Favorites> {
   Future<List<Map<String, dynamic>>> listFavorites() async {
     try {
       final body = {
-        "id_user": await Preferences.getUserData()!.id,
+        "id_user": /*await Preferences.getUserData()!.id*/"6",
         "token": ApplicationConstant.TOKEN
       };
 
@@ -66,12 +66,16 @@ class _Favorites extends State<Favorites> {
             future: listFavorites(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                final response = Favorite.fromJson(snapshot.data![0]);
+                final responseItem = Favorite.fromJson(snapshot.data![0]);
 
-                if (response.rows != 0) {
+                if (responseItem.rows != 0) {
                   return ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
+
+
+                      final response = Favorite.fromJson(snapshot.data![index]);
+
                       return Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(
@@ -89,17 +93,18 @@ class _Favorites extends State<Favorites> {
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.circular(
                                           Dimens.minRadiusApplication),
-                                      child: Image.asset(
-                                        'images/person.jpg',
+                                      child: Image.network(
+                                        ApplicationConstant.URL_PRODUCT_PHOTO + response.url_foto.toString(),
                                         height: 90,
                                         width: 90,
+                                        errorBuilder: (context, exception, stackTrack) => Icon(Icons.error, size: 90),
                                       ))),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      Strings.shortLoremIpsum,
+                                      response.nome,
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
@@ -112,7 +117,7 @@ class _Favorites extends State<Favorites> {
                                     SizedBox(
                                         height: Dimens.minMarginApplication),
                                     Text(
-                                      Strings.longLoremIpsum,
+                                      response.descricao,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                       style: TextStyle(
@@ -123,7 +128,7 @@ class _Favorites extends State<Favorites> {
                                     ),
                                     SizedBox(height: Dimens.marginApplication),
                                     Text(
-                                      "R\$ 50,00",
+                                      response.valor,
                                       style: TextStyle(
                                         fontFamily: 'Inter',
                                         fontSize: Dimens.textSize6,

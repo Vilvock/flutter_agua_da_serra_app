@@ -33,7 +33,7 @@ class _Orders extends State<Orders> {
   Future<List<Map<String, dynamic>>> listOrders() async {
     try {
       final body = {
-        "id_user": await Preferences.getUserData()!.id,
+        "id_user": /*await Preferences.getUserData()!.id*/"6",
         "token": ApplicationConstant.TOKEN
       };
 
@@ -66,12 +66,15 @@ class _Orders extends State<Orders> {
               future: listOrders(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  final response = Order.fromJson(snapshot.data![0]);
+                  final responseItem = Order.fromJson(snapshot.data![0]);
 
-                  if (response.rows != 0) {
+                  if (responseItem.rows != 0) {
                     return ListView.builder(
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
+
+                        final response = Order.fromJson(snapshot.data![index]);
+
                         return Card(
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(
@@ -83,26 +86,24 @@ class _Orders extends State<Orders> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Container(
-                                    margin: EdgeInsets.only(
-                                        right: Dimens.minMarginApplication),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            Dimens.minRadiusApplication),
-                                        child: Image.asset(
-                                          'images/person.jpg',
-                                          height: 90,
-                                          width: 90,
-                                        ))),
+                                // Container(
+                                //     margin: EdgeInsets.only(
+                                //         right: Dimens.minMarginApplication),
+                                //     child: ClipRRect(
+                                //         borderRadius: BorderRadius.circular(
+                                //             Dimens.minRadiusApplication),
+                                //         child: Image.asset(
+                                //           'images/person.jpg',
+                                //           height: 90,
+                                //           width: 90,
+                                //         ))),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        Strings.shortLoremIpsum,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
+                                        "Pedido: #" + response.id.toString() ,
                                         style: TextStyle(
                                           fontFamily: 'Inter',
                                           fontSize: Dimens.textSize6,
