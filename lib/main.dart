@@ -1,3 +1,4 @@
+// @dart=2.9
 import 'package:flutter/material.dart';
 import 'package:flutter_agua_da_serra_app/ui/auth/login.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/menu/products.dart';
