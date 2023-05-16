@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_agua_da_serra_app/config/preferences.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/strings.dart';
-import 'package:flutter_agua_da_serra_app/ui/auth/login.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/alert_dialog_generic.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
+
+import '../auth/login.dart';
 
 class MainMenu extends StatefulWidget {
   const MainMenu({Key? key}) : super(key: key);

@@ -5,82 +5,61 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/config/application_messages.dart';
 import 'package:flutter_agua_da_serra_app/config/masks.dart';
-import 'package:flutter_agua_da_serra_app/config/preferences.dart';
 import 'package:flutter_agua_da_serra_app/config/validator.dart';
 import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
 import 'package:flutter_agua_da_serra_app/model/user.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
-import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
 import 'package:flutter_agua_da_serra_app/web_service/links.dart';
 import 'package:flutter_agua_da_serra_app/web_service/service_response.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
+import '../../components/custom_app_bar.dart';
+
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  State<Profile> createState() => _ProfileState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _ProfileState extends State<Profile> {
+class _RegisterState extends State<Register> {
   @override
   void initState() {
-    loadProfileRequest();
     super.initState();
   }
 
   late Validator validator;
   final postRequest = PostRequest();
-  User? _profileResponse;
+  User? _registerResponse;
 
-  Future<void> loadProfileRequest() async {
+  Future<void> registerRequest(
+      String email,
+      String password,
+      String fantasyName,
+      String socialReason,
+      String cnpj,
+      String cellphone,
+      String latitude,
+      String longitude) async {
     try {
       final body = {
-        "id": await Preferences.getUserData()!.id,
-        "token": ApplicationConstant.TOKEN
+
+          "razao_social": socialReason,
+          "nome_fantasia": fantasyName,
+          "cnpj": cnpj,
+          "email": email,
+          "celular": cellphone,
+          "password": password,
+          "latitude": latitude,
+          "longitude": longitude,
+          "token": ApplicationConstant.TOKEN
+
       };
 
       print('HTTP_BODY: $body');
 
-      final json = await postRequest.sendPostRequest(Links.LOAD_PROFILE, body);
-      final parsedResponse = jsonDecode(json);
-
-      print('HTTP_RESPONSE: $parsedResponse');
-
-      final response = User.fromJson(parsedResponse);
-      //
-      // if (response.status == "01") {
-      setState(() {
-        _profileResponse = response;
-
-        fantasyNameController.text = _profileResponse!.nome.toString();
-        emailController.text = _profileResponse!.email.toString();
-        cnpjController.text = _profileResponse!.documento.toString();
-        cellphoneController.text = _profileResponse!.celular.toString();
-      });
-      // } else {}
-    } catch (e) {
-      throw Exception('HTTP_ERROR: $e');
-    }
-  }
-
-  Future<void> updateUserDataRequest(
-      String name, String documentCnpj, String cellphone, String email) async {
-    try {
-      final body = {
-        "id": await Preferences.getUserData()!.id,
-        "nome": name,
-        "documento": documentCnpj,
-        "celular": cellphone,
-        "email": email,
-        "token": ApplicationConstant.TOKEN
-      };
-
-      print('HTTP_BODY: $body');
-
-      final json =
-          await postRequest.sendPostRequest(Links.UPDATE_USER_DATA, body);
+      final json = await postRequest.sendPostRequest(Links.REGISTER, body);
       // final parsedResponse = jsonDecode(json); // pegar um objeto so
 
       List<Map<String, dynamic>> _map = [];
@@ -91,56 +70,32 @@ class _ProfileState extends State<Profile> {
       final response = User.fromJson(_map[0]);
 
       if (response.status == "01") {
-
-        loadProfileRequest();
-      } else {
-
-      }
-      ApplicationMessages(context: context).showMessage(response.msg);
-    } catch (e) {
-      throw Exception('HTTP_ERROR: $e');
-    }
-  }
-
-  Future<void> updatePasswordRequest(String password) async {
-    try {
-      final body = {
-        "id_usuario": await Preferences.getUserData()!.id,
-        "password": password,
-        "token": ApplicationConstant.TOKEN
-      };
-
-      print('HTTP_BODY: $body');
-
-      final json =
-          await postRequest.sendPostRequest(Links.UPDATE_PASSWORD, body);
-      // final parsedResponse = jsonDecode(json); // pegar um objeto so
-
-      List<Map<String, dynamic>> _map = [];
-      _map = List<Map<String, dynamic>>.from(jsonDecode(json));
-
-      print('HTTP_RESPONSE: $_map');
-
-      final response = User.fromJson(_map[0]);
-
-      if (response.status == "01") {
-
         setState(() {
-          _profileResponse = response;
+          _registerResponse = response;
+          saveUserToPreferences(_registerResponse!);
 
-          passwordController.text = "";
-          coPasswordController.text = "";
+
+          Navigator.of(context).pop();
+
+          // Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => Home()),
+          //     ModalRoute.withName("/ui/home"));
         });
-
-
-        loadProfileRequest();
       } else {
 
+        ApplicationMessages(context: context).showMessage(response.msg);
+
       }
-      ApplicationMessages(context: context).showMessage(response.msg);
     } catch (e) {
       throw Exception('HTTP_ERROR: $e');
     }
+  }
+
+  Future<void> saveUserToPreferences(User user) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userData = user.toJson();
+    await prefs.setString('user', jsonEncode(userData));
   }
 
   final TextEditingController emailController = TextEditingController();
@@ -169,9 +124,14 @@ class _ProfileState extends State<Profile> {
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: CustomAppBar(title: "Meu Perfil", isVisibleBackButton: true),
+        appBar: CustomAppBar(),
         body: Container(
-            child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+                OwnerColors.gradientFirstColor,
+                OwnerColors.gradientSecondaryColor,
+                OwnerColors.gradientThirdColor
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: Column(children: [
             Expanded(
                 child: SingleChildScrollView(
@@ -180,28 +140,47 @@ class _ProfileState extends State<Profile> {
                 child: Column(
                   children: [
                     Container(
-                        width: 128,
-                        height: 128,
-                        margin:
-                            EdgeInsets.only(right: Dimens.marginApplication),
-                        child: Stack(alignment: Alignment.center, children: [
-                          CircleAvatar(
-                            backgroundImage: AssetImage('images/person.jpg'),
-                            radius: 64,
-                          ),
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: FloatingActionButton(
-                              mini: true,
-                              child:
-                                  Icon(Icons.camera_alt, color: Colors.black),
-                              backgroundColor: Colors.white,
-                              onPressed: () {
-                                // Add your onPressed code here!
-                              },
-                            ),
-                          )
-                        ])),
+                      width: double.infinity,
+                      child: Text(
+                        "Olá, \nCrie uma conta",
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: Dimens.textSize8,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 32),
+                    TextField(
+                      controller: socialReasonController,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: OwnerColors.colorPrimary, width: 1.5),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                        hintText: 'Razão Social',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(Dimens.radiusApplication),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding:
+                            EdgeInsets.all(Dimens.textFieldPaddingApplication),
+                      ),
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: Dimens.textSize5,
+                      ),
+                    ),
                     SizedBox(height: Dimens.marginApplication),
                     TextField(
                       controller: fantasyNameController,
@@ -227,36 +206,6 @@ class _ProfileState extends State<Profile> {
                             EdgeInsets.all(Dimens.textFieldPaddingApplication),
                       ),
                       keyboardType: TextInputType.text,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: Dimens.textSize5,
-                      ),
-                    ),
-                    SizedBox(height: Dimens.marginApplication),
-                    TextField(
-                      controller: emailController,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: OwnerColors.colorPrimary, width: 1.5),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey, width: 1.0),
-                        ),
-                        hintText: 'E-mail',
-                        hintStyle: TextStyle(color: Colors.grey),
-                        border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(Dimens.radiusApplication),
-                          borderSide: BorderSide.none,
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding:
-                            EdgeInsets.all(Dimens.textFieldPaddingApplication),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
                       style: TextStyle(
                         color: Colors.grey,
                         fontSize: Dimens.textSize5,
@@ -325,53 +274,36 @@ class _ProfileState extends State<Profile> {
                       ),
                     ),
                     SizedBox(height: Dimens.marginApplication),
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: Dimens.marginApplication,
-                          bottom: Dimens.marginApplication),
-                      width: double.infinity,
-                      height: 50,
-                      child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                OwnerColors.colorPrimary),
-                          ),
-                          onPressed: () {
-                            if (!validator.validateGenericTextField(fantasyNameController.text, "Nome fantasia")) return;
-                            if (!validator.validateEmail(emailController.text)) return;
-                            if (!validator.validateCNPJ(cnpjController.text)) return;
-                            if (!validator.validateCellphone(cellphoneController.text)) return;
-
-                            updateUserDataRequest(
-                                fantasyNameController.text,
-                                cnpjController.text,
-                                cellphoneController.text,
-                                emailController.text);
-                          },
-                          child: Text(
-                            "Atualizar dados",
-                            style: TextStyle(
-                                fontSize: Dimens.textSize8,
-                                color: Colors.white,
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.normal,
-                                decoration: TextDecoration.none),
-                          )),
-                    ),
-                    SizedBox(height: Dimens.marginApplication),
-                    Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.only(bottom: Dimens.marginApplication),
-                      child: Text(
-                        "Alterar Senha",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: Dimens.textSize6,
-                          color: Colors.black,
+                    TextField(
+                      controller: emailController,
+                      decoration: InputDecoration(
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: OwnerColors.colorPrimary, width: 1.5),
                         ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: Colors.grey, width: 1.0),
+                        ),
+                        hintText: 'E-mail',
+                        hintStyle: TextStyle(color: Colors.grey),
+                        border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.circular(Dimens.radiusApplication),
+                          borderSide: BorderSide.none,
+                        ),
+                        filled: true,
+                        fillColor: Colors.white,
+                        contentPadding:
+                            EdgeInsets.all(Dimens.textFieldPaddingApplication),
+                      ),
+                      keyboardType: TextInputType.emailAddress,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: Dimens.textSize5,
                       ),
                     ),
+                    SizedBox(height: Dimens.marginApplication),
                     TextField(
                       controller: passwordController,
                       decoration: InputDecoration(
@@ -383,7 +315,7 @@ class _ProfileState extends State<Profile> {
                           borderSide:
                               BorderSide(color: Colors.grey, width: 1.0),
                         ),
-                        hintText: 'Nova Senha',
+                        hintText: 'Senha',
                         hintStyle: TextStyle(color: Colors.grey),
                         border: OutlineInputBorder(
                           borderRadius:
@@ -437,7 +369,23 @@ class _ProfileState extends State<Profile> {
                         fontSize: Dimens.textSize5,
                       ),
                     ),
-                    SizedBox(height: Dimens.marginApplication),
+                    GestureDetector(
+                        child: Container(
+                            margin: EdgeInsets.only(
+                                top: Dimens.marginApplication,
+                                bottom: Dimens.marginApplication),
+                            child: Text(
+                              "Ao clicar no botão Criar conta, você aceita os termos de privacidade do aplicativo.",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: Dimens.textSize5,
+                                fontFamily: 'Inter',
+                              ),
+                              textAlign: TextAlign.center,
+                            )),
+                        onTap: () {
+                          Navigator.pushNamed(context, "/ui/pdf_viewer");
+                        }),
                     Container(
                       margin: EdgeInsets.only(top: Dimens.marginApplication),
                       width: double.infinity,
@@ -448,15 +396,26 @@ class _ProfileState extends State<Profile> {
                                 OwnerColors.colorPrimary),
                           ),
                           onPressed: () {
-
+                            if (!validator.validateGenericTextField(socialReasonController.text, "Razão social")) return;
+                            if (!validator.validateGenericTextField(fantasyNameController.text, "Nome fantasia")) return;
+                            if (!validator.validateCNPJ(cnpjController.text)) return;
+                            if (!validator.validateCellphone(cellphoneController.text)) return;
+                            if (!validator.validateEmail(emailController.text)) return;
                             if (!validator.validatePassword(passwordController.text)) return;
                             if (!validator.validateCoPassword(passwordController.text, coPasswordController.text)) return;
 
-                            updatePasswordRequest(passwordController.text);
-
+                            registerRequest(
+                                emailController.text,
+                                passwordController.text,
+                                fantasyNameController.text,
+                                socialReasonController.text,
+                                cnpjController.text,
+                                cellphoneController.text,
+                                "432432432",
+                                "432423423");
                           },
                           child: Text(
-                            "Atualizar senha",
+                            "Criar conta",
                             style: TextStyle(
                                 fontSize: Dimens.textSize8,
                                 color: Colors.white,
@@ -465,11 +424,29 @@ class _ProfileState extends State<Profile> {
                                 decoration: TextDecoration.none),
                           )),
                     ),
+                    SizedBox(height: Dimens.marginApplication),
+                    GestureDetector(
+                        child: Container(
+                            margin: EdgeInsets.only(
+                                top: Dimens.marginApplication,
+                                bottom: Dimens.marginApplication),
+                            child: Text(
+                              "Já possui uma conta? Entre aqui",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: Dimens.textSize5,
+                                fontFamily: 'Inter',
+                              ),
+                              textAlign: TextAlign.center,
+                            )),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        }),
                   ],
                 ),
               ),
             )),
           ]),
-        )));
+        ));
   }
 }

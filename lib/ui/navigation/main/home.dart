@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +14,14 @@ import 'package:flutter_agua_da_serra_app/res/strings.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/dot_indicator.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/progress_hud.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/cart.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/favorites.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/main_menu.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/orders.dart';
 import 'package:flutter_agua_da_serra_app/web_service/links.dart';
 import 'package:flutter_agua_da_serra_app/web_service/service_response.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+
+import 'cart.dart';
+import 'favorites.dart';
+import 'main_menu.dart';
+import 'orders.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -143,9 +145,27 @@ class _ContainerHomeState extends State<ContainerHome> {
 
   Future<void> saveFcm() async {
     try {
+      // await Preferences.init();
+      // String? savedFcmToken = await Preferences.getInstanceTokenFcm();
+      // String? currentFcmToken = await _firebaseMessaging.getToken();
+      // if (savedFcmToken != null && savedFcmToken == currentFcmToken) {
+      //   print('FCM: não salvou');
+      //   return;
+      // }
+
+      var _type = "";
+
+      if (Platform.isAndroid) {
+        _type = ApplicationConstant.FCM_TYPE_ANDROID;
+      } else if (Platform.isIOS) {
+        _type = ApplicationConstant.FCM_TYPE_IOS;
+      } else {
+        return;
+      }
+
       final body = {
         "id_user": await Preferences.getUserData()!.id,
-        "type": 2,
+        "type": _type,
         "registration_id": "",
         "token": ApplicationConstant.TOKEN,
       };

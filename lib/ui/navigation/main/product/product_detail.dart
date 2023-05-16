@@ -12,12 +12,13 @@ import 'package:flutter_agua_da_serra_app/res/strings.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/custom_app_bar.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/dot_indicator.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/progress_hud.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
-import '../../../global/application_constant.dart';
-import '../../../web_service/links.dart';
-import '../../../web_service/service_response.dart';
+import '../../../../global/application_constant.dart';
+import '../../../../web_service/links.dart';
+import '../../../../web_service/service_response.dart';
+import '../home.dart';
+
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({Key? key}) : super(key: key);

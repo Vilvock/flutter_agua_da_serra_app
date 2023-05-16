@@ -1,20 +1,20 @@
 // @dart=2.9
 import 'package:flutter/material.dart';
-import 'package:flutter_agua_da_serra_app/ui/auth/login.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/menu/products.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/menu/subcategories.dart';
-import 'package:flutter_agua_da_serra_app/ui/utilities/pdf_viewer.dart';
-import 'package:flutter_agua_da_serra_app/ui/auth/register.dart';
-import 'package:flutter_agua_da_serra_app/ui/intro/onboarding.dart';
-import 'package:flutter_agua_da_serra_app/ui/intro/splash.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/checkout_flow/method_payment.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/checkout_flow/sucess.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/menu/categories.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/menu/profile.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/menu/user_addresses.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/product/product_detail.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/auth/login.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/auth/register.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/intro/onboarding.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/intro/splash.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/main/checkout_flow/method_payment.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/main/checkout_flow/sucess.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/main/home.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/main/menu/address/user_addresses.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/main/menu/categories/categories.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/main/menu/categories/products.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/main/menu/categories/subcategories.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/main/menu/user/profile.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/main/product/product_detail.dart';
+import 'package:flutter_agua_da_serra_app/ui/navigation/utilities/pdf_viewer.dart';
 
 void main() {
   runApp(MaterialApp(

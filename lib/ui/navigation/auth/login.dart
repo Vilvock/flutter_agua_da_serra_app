@@ -10,13 +10,13 @@ import 'package:flutter_agua_da_serra_app/global/application_constant.dart';
 import 'package:flutter_agua_da_serra_app/model/user.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
-import 'package:flutter_agua_da_serra_app/ui/auth/register.dart';
-import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
 import 'package:flutter_agua_da_serra_app/web_service/links.dart';
 import 'package:flutter_agua_da_serra_app/web_service/service_response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../components/custom_app_bar.dart';
+import '../../components/custom_app_bar.dart';
+import '../main/home.dart';
+
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);

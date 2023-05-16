@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_agua_da_serra_app/ui/auth/login.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/dot_indicator.dart';
+
+import '../auth/login.dart';
 
 // VAI NA LINHA 68
 class Onboarding extends StatefulWidget {
