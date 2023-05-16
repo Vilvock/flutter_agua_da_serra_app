@@ -214,7 +214,7 @@ class _Cart extends State<Cart> {
                                       Navigator.pushNamed(context, "/ui/method_payment");
                                     },
                                     child: Text(
-                                      "Escolher método de pagamento",
+                                      "Avançar",
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontSize: Dimens.textSize8,

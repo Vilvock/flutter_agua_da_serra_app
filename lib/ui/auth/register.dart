@@ -76,10 +76,13 @@ class _RegisterState extends State<Register> {
           _registerResponse = response;
           saveUserToPreferences(_registerResponse!);
 
-          Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => Home()),
-              ModalRoute.withName("/ui/home"));
+
+          Navigator.of(context).pop();
+
+          // Navigator.pushAndRemoveUntil(
+          //     context,
+          //     MaterialPageRoute(builder: (context) => Home()),
+          //     ModalRoute.withName("/ui/home"));
         });
       } else {
 
@@ -125,7 +128,12 @@ class _RegisterState extends State<Register> {
         resizeToAvoidBottomInset: false,
         appBar: CustomAppBar(),
         body: Container(
-            child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+                OwnerColors.gradientFirstColor,
+                OwnerColors.gradientSecondaryColor,
+                OwnerColors.gradientThirdColor
+              ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
           child: Column(children: [
             Expanded(
                 child: SingleChildScrollView(
@@ -441,6 +449,6 @@ class _RegisterState extends State<Register> {
               ),
             )),
           ]),
-        )));
+        ));
   }
 }

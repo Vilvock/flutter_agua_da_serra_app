@@ -225,8 +225,7 @@ class _ContainerHomeState extends State<ContainerHome> {
                                           Navigator.pushNamed(
                                               context, "/ui/product_detail",
                                               arguments: {
-                                                "name": "Bijendra",
-                                                "rollNo": 65210
+                                                "id_product": response.id,
                                               })
                                         },
                                     child: Card(

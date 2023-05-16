@@ -100,6 +100,12 @@ class _LoginState extends State<Login> {
       resizeToAvoidBottomInset: false,
       appBar: CustomAppBar(),
       body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              OwnerColors.gradientFirstColor,
+              OwnerColors.gradientSecondaryColor,
+              OwnerColors.gradientThirdColor
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
         margin: EdgeInsets.all(Dimens.marginApplication),
         child: Column(
           children: [

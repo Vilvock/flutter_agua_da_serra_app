@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_agua_da_serra_app/config/application_messages.dart';
+import 'package:flutter_agua_da_serra_app/config/preferences.dart';
+import 'package:flutter_agua_da_serra_app/model/product.dart';
 import 'package:flutter_agua_da_serra_app/res/dimens.dart';
 import 'package:flutter_agua_da_serra_app/res/owner_colors.dart';
 import 'package:flutter_agua_da_serra_app/res/strings.dart';
@@ -10,6 +14,10 @@ import 'package:flutter_agua_da_serra_app/ui/components/dot_indicator.dart';
 import 'package:flutter_agua_da_serra_app/ui/components/progress_hud.dart';
 import 'package:flutter_agua_da_serra_app/ui/main/home.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+
+import '../../../global/application_constant.dart';
+import '../../../web_service/links.dart';
+import '../../../web_service/service_response.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({Key? key}) : super(key: key);
@@ -22,12 +30,58 @@ class _ProductDetail extends State<ProductDetail> {
   bool _isLoading = false;
   int _pageIndex = 0;
 
+  late int _id;
+
+  final postRequest = PostRequest();
+
+  @override
+  void initState() {
+    super.initState();
+
+  }
+
+
+  Future<void> loadProduct() async {
+    try {
+      final body = {
+        "id_user": await Preferences.getUserData()!.id,
+        "id": _id,
+        "token": ApplicationConstant.TOKEN,
+      };
+
+      print('HTTP_BODY: $body');
+
+      final json =
+      await postRequest.sendPostRequest(Links.LOAD_PRODUCT, body);
+
+      List<Map<String, dynamic>> _map = [];
+      _map = List<Map<String, dynamic>>.from(jsonDecode(json));
+
+      print('HTTP_RESPONSE: $_map');
+
+      final response = Product.fromJson(_map[0]);
+
+      if (response.status == "01") {
+
+        setState(() {
+        });
+
+      } else {
+
+      }
+    } catch (e) {
+      throw Exception('HTTP_ERROR: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Map data = {};
     data = ModalRoute.of(context)!.settings.arguments as Map;
-    
-    print(data['name']);
+
+    _id = data['id_product'];
+
+    loadProduct();
 
     return Scaffold(
         resizeToAvoidBottomInset: false,
