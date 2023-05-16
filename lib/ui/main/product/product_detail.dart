@@ -33,11 +33,17 @@ class _ProductDetail extends State<ProductDetail> {
   late int _id;
 
   final postRequest = PostRequest();
+  late Product _product;
 
   @override
   void initState() {
     super.initState();
 
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
 
@@ -64,6 +70,8 @@ class _ProductDetail extends State<ProductDetail> {
       if (response.status == "01") {
 
         setState(() {
+
+          _product = response;
         });
 
       } else {
@@ -141,9 +149,7 @@ class _ProductDetail extends State<ProductDetail> {
                                   spacing: 0.0),
                               SizedBox(height: Dimens.minMarginApplication),
                               Text(
-                                Strings.longLoremIpsum,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
+                                _product.nome,
                                 style: TextStyle(
                                   fontFamily: 'Inter',
                                   fontSize: Dimens.textSize6,

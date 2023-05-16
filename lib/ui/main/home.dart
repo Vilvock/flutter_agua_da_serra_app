@@ -141,6 +141,41 @@ class _ContainerHomeState extends State<ContainerHome> {
     }
   }
 
+  Future<void> saveFcm() async {
+    try {
+      final body = {
+        "id_user": await Preferences.getUserData()!.id,
+        "type": 2,
+        "registration_id": "",
+        "token": ApplicationConstant.TOKEN,
+      };
+
+      print('HTTP_BODY: $body');
+
+      final json =
+      await postRequest.sendPostRequest(Links.SAVE_FCM, body);
+
+      List<Map<String, dynamic>> _map = [];
+      _map = List<Map<String, dynamic>>.from(jsonDecode(json));
+
+      print('HTTP_RESPONSE: $_map');
+
+      final response = Product.fromJson(_map[0]);
+
+      if (response.status == "01") {
+
+        setState(() {
+
+        });
+
+      } else {
+
+      }
+    } catch (e) {
+      throw Exception('HTTP_ERROR: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
